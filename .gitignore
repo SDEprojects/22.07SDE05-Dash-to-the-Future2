@@ -24,4 +24,4 @@ hs_err_pid*
 
 # adding java project core files to git ignore
 *.idea/
-*.img
+*.iml
