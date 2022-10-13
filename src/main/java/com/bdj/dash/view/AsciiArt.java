@@ -34,7 +34,8 @@ public class AsciiArt {
         "\n This is a text-based RPG game that features a Door Dasher that wanders around \n"
             + " in an apocalyptic future. The character can talk to NPC, pick up items, \n"
             + " and attack zombies. The objective of the game is to either find a way back \n"
-            + " to the past or at least find a safe haven.\n");
+            + " to the past or at least find a safe haven. Type help at any time to see a list "
+            + "of usable commands\n");
   }
 
 }
