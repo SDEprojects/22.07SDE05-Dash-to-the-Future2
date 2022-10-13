@@ -30,7 +30,11 @@ public class AsciiArt {
   }
 
   public void instructions(){
-    System.out.println("instructions");
+    System.out.println(
+        "\n This is a text-based RPG game that features a Door Dasher that wanders around \n"
+            + " in an apocalyptic future. The character can talk to NPC, pick up items, \n"
+            + " and attack zombies. The objective of the game is to either find a way back \n"
+            + " to the past or at least find a safe haven.\n");
   }
 
 }
