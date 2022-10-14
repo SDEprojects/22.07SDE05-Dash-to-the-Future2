@@ -62,38 +62,32 @@ public class Game {
     locationMap.put("abandoned house", new Location("abandoned house", new
         String[]{"crossbow"}, "crossroads", null,null,null,
         "Oops....looks like you got sent to the future. What are you going to do?\n"
-            + "Looks like you are at the abandoned building. This future world looks like it's in"
-            + " shambles. What happened? Is there any place safe around here, or any way back to"
-            + " the past?\n You don't see much around you, but there is a crossbow lying on the"
-            + " ground and a sign reading \"Safe Haven\". \n You can also see a warning sign in one"
-            + " corner that says, \"Proceed with caution. There are zombies everywhere.\"\n"
-            + "There are also crossroads north of you."));
+            + "This future world looks like it's in shambles. What happened? Is there any place "
+            + "safe around here, or any way back to the past? You see a sign reading \"Safe Haven\""
+            + ". \n You can also see a warning sign in a corner that says, \"Proceed with caution."
+            + " There are zombies everywhere.\"\n"));
 
     locationMap.put("crossroads", new Location("crossroads", new String[]{}, null,
-        "abandoned house",null,"grocery store", "Looks like you are standing"
-        + " in the middle of the crossroad. It doesn't look too safe out here. You can see someone "
-        + "close to you, but don't know who that is. There is a grocery store to the west."
-        + " There is nothing else in any other direction."));
+        "abandoned house",null,"grocery store", "It doesn't look too safe "
+        + "out here. You can see someone close to you, but don't know who that is."));
 
     locationMap.put("grocery store", new Location("grocery store", new String[]{},
-        "abandoned fairgrounds", null,"crossroads",null, "Oh no! You"
-        + " encountered a zombie. It might be smart to add that crossbow to your inventory now. "));
+        "abandoned fairgrounds", null,"crossroads",null, "The food"
+        + " here doesn't look edible"));
 
     locationMap.put("abandoned fairgrounds", new Location("abandoned fairgrounds",
         new String[]{"spiked bat"}, "street pharmaceutical", "grocery store",null,
-        "invasion woods", "This place probably used to be up and popping. You see a "
-        + "spiked bat way out in the ground. There is invasion woods to the west, street"
-        + " pharmaceuticals directly to the north and grocery store, south now behind you."));
+        "invasion woods", "This place probably used to be up and popping."));
 
     locationMap.put("street pharmaceutical", new Location("street pharmaceutical",
         new String[]{"duct tape"}, null, "abandoned fairgrounds","radioactive club",
-        null, "Oh look! You are at the Street pharmaceuticals. Looks like all they"
-        + " have is a duct tape. There is radioactive club to the east."));
+        null, "Oh look! You see a man in a trench coat oh wait its just the"
+        + " Street Pharmaceuticals."));
 
     locationMap.put("radioactive club", new Location("radioactive club", new String[]{},
         null, null,null,"street pharmaceutical", "What kind of club is"
-        + " this? Looks like you have encountered 2 zombies. You don't have enough items in your"
-        + " inventory to kill them both. You are DEAD!"));
+        + " this? Looks like you have encountered 2 zombies. You can't kill them both.\n"
+        + " YOU DIED!"));
 
     locationMap.put("invasion woods", new Location("invasion woods", new String[]{},
         "rusty gun store", null,"abandoned fairgrounds",null, "Oh, you"
@@ -103,38 +97,32 @@ public class Game {
 
     locationMap.put("rusty gun store", new Location("rusty gun store",
         new String[]{"gun"}, "shanty docks", "invasion woods",null,null,
-        "Well, this looks like a useful place. Let's see if they have anything. Oh wait,"
-            + " they have a gun. You definitely need a gun moving forward.\n There is Shanty Docks"
-            + " to the north, and invasion Woods directly to the south."));
+        "Well, this looks like a useful place. Let's see if they have anything. You "
+            + "definitely need a gun moving forward."));
 
     locationMap.put("shanty docks", new Location("shanty docks", new String[]{"raft"},
         null, "rusty gun store","toxic river",null, "This is exciting."
-        + " You see a bunch of rotten rafts. Oh wait, there is a serviceable raft. You can take it"
-        + " to get to the toxic river to the east.\n"));
+        + " You see a bunch of rotten rafts. Should you use a raft to cross the toxic river?\n"));
 
     locationMap.put("toxic river", new Location("toxic river", new String[]{},
         "not deadly depths", null,"boss room","zombie motel caves",
-        "Oh man! You must be really thirsty from the long trip. But wait, this stinky"
-            + " water cannot be trusted.\n There is Zombie Motel Caves to the west, Not Deadly "
-            + "Depths to the north and the Boss Room to the east. Think wisely before you "
-            + "proceed!"));
+        "Oh man! You must be really thirsty from the long trip. But wait, this rancid"
+            + " water cannot be trusted. Think wisely before you proceed!"));
 
     locationMap.put("zombie motel caves", new Location("zombie motel caves",
         new String[]{}, "invasion woods", "secret bunker",null,null,
-        "You found yourself at the Zombie Motel Caves. Who do you think you encounter"
-            + " here? Duh - a zombie.\n There is a secret bunker to the south."));
+        "Who do you think you encounter here? Duh - zombies.\n"));
 
     locationMap.put("secret bunker", new Location("secret bunker", new String[]{},
         "zombie motel caves", "portal",null,null, "Well, that looks"
-        + " like a safe place to hide. You can also go back north to the Zombie Motel Caves where"
-        + " you came from. What is that piece of paper sticking out from beneath the rocks? It is a"
-        + " note that reads, \"The future of safe haven lies in your hands. Take this note to the "
-        + "Safe Haven to save the people and restore peace forever.\"\n"));
+        + " like a safe place to hide. What is that piece of paper sticking out from beneath the "
+        + "rocks? It is a note that reads, \"The future of safe haven lies in your hands. Take this"
+        + " note to the Safe Haven to save the people and restore peace forever.\"\n"));
 
     locationMap.put("portal", new Location("portal", new String[]{}, "secret "
-        + "bunker", null,null,null, "Oh look, you have made it to the "
-        + "portal. You've successfully gone back to the past. I wish you the best with door-dashing"
-        + ". Be aware of the abandoned places in the future!"));
+        + "bunker", null,null,null, "Oh look, fled to the portal instead of"
+        + ". Saving everyone else. Congratulations you have gone back to the past. I wish you the"
+        + " best with door-dashing. Be aware of the abandoned places in the future!"));
 
     locationMap.put("not deadly depths", new Location("not deadly depths",
         new String[]{}, null, null,null,null, "I guess those depths "
@@ -149,8 +137,9 @@ public class Game {
 
     locationMap.put("safe haven", new Location("safe haven", new String[]{}, null,
         null,null,null, "Congratulations! You have successfully overcome "
-        + "all the obstacles and reached Safe Haven. The people appreciate your selfless help. You"
-        + " can now have all the happiness you ever imagined.\n"));
+        + "all the obstacles and reached Safe Haven. If only you could find a way back to the past."
+        + " The people appreciate your selfless help. You can now have all the happiness you ever"
+        + " imagined.\n"));
   }
 
   public void inputCommand() {
