@@ -8,11 +8,21 @@ public class Commands {
   public boolean playing;
 
 
-  public void playGame() {
+  public void startGame() {
     Scanner input = new Scanner(System.in);
     System.out.println("Would you like to begin the game? y/n");
     String command = input.nextLine().toLowerCase().trim();
+    processCommand(command);
+  }
 
+  public void inputCommand(){
+    Scanner input = new Scanner(System.in);
+    System.out.println("enterCommand: ");
+    String command = input.nextLine().toLowerCase().trim();
+    processCommand(command);
+  }
+
+  public void processCommand(String command){
       if (command.equals("y")) {
         playing = true;
         System.out.println("The game has begun!");
@@ -40,4 +50,14 @@ public class Commands {
       }
 
     }
+
+
+  public boolean isPlaying() {
+    return playing;
+  }
+
+  public void setPlaying(boolean playing) {
+    this.playing = playing;
+  }
+
   }
