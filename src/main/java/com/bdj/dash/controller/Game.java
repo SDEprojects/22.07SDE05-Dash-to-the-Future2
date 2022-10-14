@@ -172,7 +172,8 @@ public class Game {
         System.out.println("You can't go this way, there is nothing there.");
       }
     } else {
-      System.out.println("Invalid command. Please enter valid game command!");
+      System.out.println("Invalid command. Please enter valid game command such as: \n"
+          + "go <north, south, east, west>, help, quit");
     }
 
   }
@@ -190,7 +191,7 @@ public class Game {
       newLocation = locationMap.get(currentLocation).getEast() == null ? currentLocation :  locationMap.get(currentLocation).getEast();
     } else{
       newLocation = currentLocation;
-      System.out.println("not a valid direction, try again!");
+      System.out.println("not a valid direction, try another!");
     }
     player.setLocation(newLocation);
   }
@@ -199,7 +200,8 @@ public class Game {
     int pHp = player.getHealth();
     System.out.println(player.getName() + " your current health is = " + pHp);
     System.out.println("You are currently at: " + player.getLocation());
-    System.out.println("your inventory currently has: " + player.getInventory());
+    System.out.println(locationMap.get(player.getLocation()).getDescription());
+    System.out.println("Your inventory currently has: " + player.getInventory());
   }
   public State getState() {
     return state;
@@ -207,5 +209,13 @@ public class Game {
 
   public void setState(State state) {
     this.state = state;
+  }
+
+  public HashMap<String, Location> getLocationMap() {
+    return locationMap;
+  }
+
+  public void setLocationMap(HashMap<String, Location> locationMap) {
+    this.locationMap = locationMap;
   }
 }
