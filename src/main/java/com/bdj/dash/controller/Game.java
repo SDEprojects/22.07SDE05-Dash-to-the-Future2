@@ -4,6 +4,8 @@ import com.bdj.dash.model.Location;
 import com.bdj.dash.model.Player;
 import com.bdj.dash.model.State;
 import com.bdj.dash.view.AsciiArt;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -201,7 +203,50 @@ public class Game {
     System.out.println(player.getName() + " your current health is = " + pHp);
     System.out.println("You are currently at: " + player.getLocation());
     System.out.println(locationMap.get(player.getLocation()).getDescription());
+    showPossibleDirections();
+    showItems();
     System.out.println("Your inventory currently has: " + player.getInventory());
+  }
+
+  public void showItems(){
+    if (locationMap.get(player.getLocation()).getItems().length > 0){
+      String[] item = locationMap.get(player.getLocation()).getItems();
+      System.out.println("You see: " + Arrays.toString(item));
+    }else{
+      System.out.println("You see no items in this area.");
+    }
+  }
+
+  public void showPossibleDirections(){
+
+    String north = locationMap.get(player.getLocation()).getNorth();
+    if(north == null){
+      System.out.println("North: Nothing this way");
+    } else{
+      System.out.println("North: " + north);
+    }
+
+    String south = locationMap.get(player.getLocation()).getSouth();
+    if(south == null){
+      System.out.println("South: Nothing this way");
+    } else{
+      System.out.println("South: " + south);
+    }
+
+    String west = locationMap.get(player.getLocation()).getWest();
+    if(west == null){
+      System.out.println("West: Nothing this way");
+    } else{
+      System.out.println("West: " + west);
+    }
+
+    String east = locationMap.get(player.getLocation()).getEast();
+    if(east == null){
+      System.out.println("East: Nothing this way");
+    } else{
+      System.out.println("East: " + east);
+    }
+
   }
   public State getState() {
     return state;
