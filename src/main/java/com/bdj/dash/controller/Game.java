@@ -162,6 +162,10 @@ public class Game {
       if (currentLocation.equals( player.getLocation())){
         System.out.println("You can't go this way, there is nothing there.");
       }
+    } else if(command[0].equals("new") && command[1].equals("game")){
+      startGame();
+    }else if (command[0].equals("get") ){
+      addToInventory();
     } else {
       System.out.println("Invalid command. Please enter valid game command such as: \n"
           + "go <north, south, east, west>, help, quit");
@@ -187,6 +191,21 @@ public class Game {
     player.setLocation(newLocation);
   }
 
+  public void addToInventory(){
+    ArrayList<String> newItem = new ArrayList<>();
+
+    if (!locationMap.get(player.getLocation()).getItems().equals(null)){
+      String[] item = locationMap.get(player.getLocation()).getItems();
+      newItem.add(item[0]);
+      player.setInventory(newItem);
+      player.getInventory();
+      System.out.println(newItem.get(0) + "has been added to your inventory");
+
+    }else{
+      System.out.println("There is nothing to get");
+    }
+  }
+
   public void statusUpdate(){
     int pHp = player.getHealth();
     System.out.println(player.getName() + " your current health is = " + pHp);
@@ -194,7 +213,15 @@ public class Game {
     System.out.println(locationMap.get(player.getLocation()).getDescription());
     showPossibleDirections();
     showItems();
-    System.out.println("Your inventory currently has: " + player.getInventory());
+    showInventory();
+  }
+
+  public void showInventory(){
+    if (player.getInventory() == null){
+      System.out.println("your inventory is empty");
+    } else{
+      System.out.println("Your inventory currently has: " + player.getInventory());
+    }
   }
 
   public void showItems(){
