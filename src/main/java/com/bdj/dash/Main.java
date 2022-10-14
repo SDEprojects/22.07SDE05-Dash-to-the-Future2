@@ -1,7 +1,6 @@
 package com.bdj.dash;
 
 import com.bdj.dash.controller.Game;
-import java.util.Scanner;
 
 public class Main {
 
