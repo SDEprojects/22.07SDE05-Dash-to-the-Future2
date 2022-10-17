@@ -75,9 +75,9 @@ public class Game {
         String[]{"crossbow"}, "crossroads", null,null,null,
         "Oops....looks like you got sent to the future. What are you going to do?\n"
             + "This future world looks like it's in shambles. What happened? Is there any place "
-            + "safe around here, or any way back to the past? You see a sign reading \"Safe Haven\""
-            + ". \n You can also see a warning sign in a corner that says, \"Proceed with caution."
-            + " There are zombies everywhere.\"\n"));
+            + "safe around here, or any way back to the past?\n You see a sign reading \"Locate "
+            + "the Safe Haven if you want to survive\". \n You also see a warning sign in a corner"
+            + " that says, \"Proceed with caution. There are zombies everywhere.\"\n"));
 
     locationMap.put("crossroads", new Location("crossroads", new String[]{}, null,
         "abandoned house",null,"grocery store", "It doesn't look too safe "
@@ -282,14 +282,14 @@ public class Game {
 
     String west = locationMap.get(player.getLocation()).getWest();
     if(west == null){
-      System.out.println("West: Nothing this way");
+      System.out.println("West:  Nothing this way");
     } else{
       System.out.println("West: " + west);
     }
 
     String east = locationMap.get(player.getLocation()).getEast();
     if(east == null){
-      System.out.println("East: Nothing this way");
+      System.out.println("East:  Nothing this way");
     } else{
       System.out.println("East: " + east);
     }
