@@ -14,6 +14,9 @@ import java.util.Scanner;
 // Game class is only class that should communicate with other classes in the model.
 // created a state class to always be aware of state and not stuck in infinite while loop
 
+// This class contains all the information for the world itself. Information about each location
+// and what each location contains from nothing to NPC, Items, Zombie etc.
+
 public class Game {
 
   AsciiArt titleArt = new AsciiArt();
@@ -39,6 +42,8 @@ public class Game {
     }
   }
 
+  // This section is displayed when you run the game.
+
   public void startGame() {
     Scanner input = new Scanner(System.in);
     System.out.println("Would you like to begin the game? y/n");
@@ -58,6 +63,9 @@ public class Game {
 
   // creating the map
   public void createMap(){
+
+    // The information below contains the structure of the world itself. Name of location, items,
+    // directions the player can go, and then description of the area.
 
     locationMap.put("abandoned house", new Location("abandoned house", new
         String[]{"crossbow"}, "crossroads", null,null,null,
@@ -142,6 +150,7 @@ public class Game {
         + " imagined.\n"));
   }
 
+  // This allows users to type commands.
   public void inputCommand() {
     Scanner input = new Scanner(System.in);
     System.out.println("enterCommand: ");
@@ -173,17 +182,23 @@ public class Game {
 
   }
 
+  // this handles how the user moves around the world and keeps track of the player.
+
   private void movePlayer(String[] command, String currentLocation) {
     String newLocation;
     if(command[1].equals("north")){
       // if null keep location, if not change location
-      newLocation = locationMap.get(currentLocation).getNorth() == null ? currentLocation :  locationMap.get(currentLocation).getNorth();
+      newLocation = locationMap.get(currentLocation).getNorth() == null ? currentLocation :
+          locationMap.get(currentLocation).getNorth();
     }else if(command[1].equals("south")){
-      newLocation = locationMap.get(currentLocation).getSouth() == null ? currentLocation :  locationMap.get(currentLocation).getSouth();
+      newLocation = locationMap.get(currentLocation).getSouth() == null ? currentLocation :
+          locationMap.get(currentLocation).getSouth();
     }else if(command[1].equals("west")){
-      newLocation = locationMap.get(currentLocation).getWest() == null ? currentLocation :  locationMap.get(currentLocation).getWest();
+      newLocation = locationMap.get(currentLocation).getWest() == null ? currentLocation :
+          locationMap.get(currentLocation).getWest();
     }else if(command[1].equals("east")){
-      newLocation = locationMap.get(currentLocation).getEast() == null ? currentLocation :  locationMap.get(currentLocation).getEast();
+      newLocation = locationMap.get(currentLocation).getEast() == null ? currentLocation :
+          locationMap.get(currentLocation).getEast();
     } else{
       newLocation = currentLocation;
       System.out.println("not a valid direction, try another!");
@@ -191,6 +206,8 @@ public class Game {
     player.setLocation(newLocation);
   }
 
+
+  // This handles how the user manipulates the inventory from picking up items to using items.
   public void addToInventory(){
     ArrayList<String> newItem = new ArrayList<>();
 
@@ -200,11 +217,12 @@ public class Game {
       player.setInventory(newItem);
       player.getInventory();
       System.out.println(newItem.get(0) + "has been added to your inventory");
-
     }else{
       System.out.println("There is nothing to get");
     }
   }
+
+  // This handles the information about the players current health
 
   public void statusUpdate(){
     int pHp = player.getHealth();
@@ -216,6 +234,8 @@ public class Game {
     showInventory();
   }
 
+
+  // this prints the players current inventory
   public void showInventory(){
     if (player.getInventory() == null){
       System.out.println("your inventory is empty");
@@ -224,6 +244,7 @@ public class Game {
     }
   }
 
+  // this shows the items in the zone, not the inventory.
   public void showItems(){
     if (locationMap.get(player.getLocation()).getItems().length > 0){
       String[] item = locationMap.get(player.getLocation()).getItems();
@@ -233,6 +254,8 @@ public class Game {
     }
   }
 
+
+  // This displays the directions that the player has currently available to them.
   public void showPossibleDirections(){
 
     String north = locationMap.get(player.getLocation()).getNorth();

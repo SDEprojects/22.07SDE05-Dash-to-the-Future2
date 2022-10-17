@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 public class Player {
 
+  // This handles information about the player from health to name and location.
   int health = 100;
   String name;
 
