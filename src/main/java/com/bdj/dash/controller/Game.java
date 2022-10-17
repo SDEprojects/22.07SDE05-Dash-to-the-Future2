@@ -71,8 +71,8 @@ public class Game {
         String[]{"crossbow"}, "crossroads", null,null,null,
         "Oops....looks like you got sent to the future. What are you going to do?\n"
             + "This future world looks like it's in shambles. What happened? Is there any place "
-            + "safe around here, or any way back to the past? You see a sign reading \"Safe Haven\""
-            + ". \n You can also see a warning sign in a corner that says, \"Proceed with caution."
+            + "safe around here,\nor any way back to the past? You see a sign reading \"Safe Haven\""
+            + ". \nYou also see a warning sign in a corner that says, \"Proceed with caution."
             + " There are zombies everywhere.\"\n"));
 
     locationMap.put("crossroads", new Location("crossroads", new String[]{}, null,
@@ -216,7 +216,7 @@ public class Game {
       newItem.add(item[0]);
       player.setInventory(newItem);
       player.getInventory();
-      System.out.println(newItem.get(0) + "has been added to your inventory");
+      System.out.println(newItem.get(0) + " has been added to your inventory");
     }else{
       System.out.println("There is nothing to get");
     }
@@ -268,20 +268,21 @@ public class Game {
     String south = locationMap.get(player.getLocation()).getSouth();
     if(south == null){
       System.out.println("South: Nothing this way");
+//      System.out.println("");
     } else{
       System.out.println("South: " + south);
     }
 
     String west = locationMap.get(player.getLocation()).getWest();
     if(west == null){
-      System.out.println("West: Nothing this way");
+      System.out.println("West:  Nothing this way");
     } else{
       System.out.println("West: " + west);
     }
 
     String east = locationMap.get(player.getLocation()).getEast();
     if(east == null){
-      System.out.println("East: Nothing this way");
+      System.out.println("East:  Nothing this way");
     } else{
       System.out.println("East: " + east);
     }
