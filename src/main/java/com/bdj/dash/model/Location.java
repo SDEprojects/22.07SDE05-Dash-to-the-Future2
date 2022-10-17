@@ -2,7 +2,7 @@ package com.bdj.dash.model;
 
 public class Location {
 
-  //all of the info about the location
+  //This class contains mostly getter/setter and variables for locations.
   private String locationName;
   private String[] items;
   private String north;
