@@ -6,8 +6,10 @@ import com.bdj.dash.model.State;
 import com.bdj.dash.view.AsciiArt;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 // moved methods into game so that we are able to manipulate the player object without having
 // all the other classes talk to each other
@@ -24,6 +26,8 @@ public class Game {
   State state;
 
   HashMap<String,Location> locationMap = new HashMap<>();
+
+  ArrayList<String> newItem = new ArrayList<>();
 
   public void playGame() {
     titleArt.title();
@@ -175,6 +179,7 @@ public class Game {
       startGame();
     }else if (command[0].equals("get") ){
       addToInventory();
+      removeItemFromArea();
     } else {
       System.out.println("Invalid command. Please enter valid game command such as: \n"
           + "go <north, south, east, west>, help, quit");
@@ -205,21 +210,23 @@ public class Game {
     }
     player.setLocation(newLocation);
   }
-
-
   // This handles how the user manipulates the inventory from picking up items to using items.
   public void addToInventory(){
-    ArrayList<String> newItem = new ArrayList<>();
 
     if (!locationMap.get(player.getLocation()).getItems().equals(null)){
       String[] item = locationMap.get(player.getLocation()).getItems();
       newItem.add(item[0]);
       player.setInventory(newItem);
-      player.getInventory();
-      System.out.println(newItem.get(0) + "has been added to your inventory");
+      // reverse so that newest item added is printed to user
+      Collections.reverse(newItem);
+      System.out.println(newItem.get(0) + " has been added to your inventory");
     }else{
       System.out.println("There is nothing to get");
     }
+  }
+
+  public void removeItemFromArea(){
+
   }
 
   // This handles the information about the players current health
@@ -246,8 +253,9 @@ public class Game {
 
   // this shows the items in the zone, not the inventory.
   public void showItems(){
-    if (locationMap.get(player.getLocation()).getItems().length > 0){
-      String[] item = locationMap.get(player.getLocation()).getItems();
+    String[] item = locationMap.get(player.getLocation()).getItems();
+
+    if (locationMap.get(player.getLocation()).getItems().length > 0 && !newItem.contains(item[0])){
       System.out.println("You see: " + Arrays.toString(item));
     }else{
       System.out.println("You see no items in this area.");
