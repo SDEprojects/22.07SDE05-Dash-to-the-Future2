@@ -1,0 +1,115 @@
+[
+  {
+    "abandoned house": {
+      "description": "\"Oops....looks like you got sent to the future. What are you going to do? This future world looks like it's in shambles. What happened? Is there any place \"\n            + \"safe around here, or any way back to the past? You see a sign reading \\\"Safe Haven\\\"\"\n            + \". \\n You can also see a warning sign in a corner that says, \\\"Proceed with caution.\"\n            + \" There are zombies everywhere.\\\"\\n\"",
+      "north": "crossroads",
+      "south": "",
+      "east": "",
+      "west": ""
+    },
+    "crossroads": {
+      "description": "It doesn't look too safe out here. You can see someone close to you, but don't know who that is.",
+      "north": "",
+      "south": "abandoned house",
+      "east": "null",
+      "west": "grocery store"
+    },
+    "grocery store": {
+      "description": "The food here doesn't look edible.",
+      "north": "abandoned fairgrounds",
+      "south": "",
+      "east": "crossroads",
+      "west": "null"
+    },
+    "abandoned fairgrounds": {
+      "description": "This place probably used to be up and popping.",
+      "north": "street pharmaceutical",
+      "south": "grocery store",
+      "east": "null",
+      "west": "invasion woods"
+    },
+    "street pharmaceutical": {
+      "description": "Oh look! You see a man in a trench coat oh wait its just the Street Pharmaceuticals.",
+      "north": "",
+      "south": "abandoned fairgrounds",
+      "east": "radioactive club",
+      "west": ""
+    },
+    "radioactive club": {
+      "description": "What kind of club is this? Looks like you have encountered 2 zombies. You can't kill them both. YOU DIED!",
+      "north": "",
+      "south": "",
+      "east": "",
+      "west": "street pharmaceutical"
+    },
+    "invasion woods": {
+      "description": "Oh, you found yourself in the middle of the woods. You have watched way too many horror films to know what happens. Push through as fast as you can! Wait, what is that? Someone is watching you from the trees above.",
+      "north": "rusty gun store",
+      "south": "",
+      "east": "abandoned fairgrounds",
+      "west": ""
+    },
+    "rusty gun store": {
+      "description": "Well, this looks like a useful place. Let's see if they have anything. You definitely need a gun moving forward.",
+      "north": "shanty docks",
+      "south": "invasion woods",
+      "east": "",
+      "west": ""
+    },
+    "shanty docks": {
+      "description": "This is exciting. You see a bunch of rotten rafts. Should you use a raft to cross the toxic river?",
+      "north": "",
+      "south": "rusty gun store",
+      "east": "toxic river",
+      "west": ""
+    },
+    "toxic river": {
+      "description": "Oh man! You must be really thirsty from the long trip. But wait, this rancid water cannot be trusted. Think wisely before you proceed!",
+      "north": "not deadly depths",
+      "south": "",
+      "east": "boss room",
+      "west": "zombie motel caves"
+    },
+    "zombie motel caves": {
+      "description": "Who do you think you encounter here? Duh - zombies.",
+      "north": "invasion woods",
+      "south": "secret bunker",
+      "east": "",
+      "west": ""
+    },
+    "secret bunker": {
+      "description": "Well, that looks like a safe place to hide. What is that piece of paper sticking out from beneath the rocks? It is a note that reads, 'The future of safe haven lies in your hands. Take this note to the Safe Haven to save the people and restore peace forever.'",
+      "north": "zombie motel caves",
+      "south": "portal",
+      "east": "",
+      "west": ""
+    },
+    "portal": {
+      "description": "Oh look, you fled to the portal instead of saving everyone else. Congratulations you have gone back to the past. I wish you the best with door-dashing. Be aware of the abandoned places in the future!",
+      "north": "secret bunker",
+      "south": "",
+      "east": "",
+      "west": ""
+    },
+    "not deadly depths": {
+      "description": "I guess those depths were deadly after all. You Died!",
+      "north": "",
+      "south": "",
+      "east": "",
+      "west": ""
+    },
+    "boss room": {
+      "description": "Phew! After all that crazy adventure, you made it to the Boss Room. The good thing is, you see safe haven directly to the north. However, you have to go through the Super Zombie Baby before you make it through to the other side. Dig through your inventory to find the most destructive weapon!",
+      "north": "safe haven",
+      "south": "",
+      "east": "",
+      "west": ""
+    },
+    "safe haven": {
+      "description": "Congratulations! You have successfully overcome all the obstacles and reached Safe Haven. If only you could find a way back to the past. The people appreciate your selfless help. You can now have all the happiness you ever imagined.",
+      "north": "",
+      "south": "",
+      "east": "",
+      "west": ""
+    }
+  }]
