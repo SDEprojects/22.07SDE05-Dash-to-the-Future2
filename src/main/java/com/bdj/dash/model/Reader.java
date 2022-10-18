@@ -1,20 +1,25 @@
 package com.bdj.dash.model;
 
+
+import static com.bdj.dash.model.JacksonParser.parse;
+
+import com.fasterxml.jackson.databind.JsonNode;
+
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
-
 
 public class Reader {
 
-  JSONParser jsonParser = new JSONParser();
+  private final JsonNode moveLocation;
 
-  public Reader() throws IOException, ParseException {
-    InputStream locationJson = Reader.class.getClassLoader().getResourceAsStream("location.json");
-    JSONObject jsonObject = (JSONObject) jsonParser.parse(new InputStreamReader(locationJson));
+  public Reader() {
+    try {
+      InputStream locationJson = Reader.class.getClassLoader().getResourceAsStream("location.json");
+      moveLocation = parse(locationJson);
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
+
   }
 
 }
