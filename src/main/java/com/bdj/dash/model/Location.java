@@ -1,19 +1,21 @@
 package com.bdj.dash.model;
 
+import com.fasterxml.jackson.databind.JsonNode;
+
 public class Location {
 
   //This class contains mostly getter/setter and variables for locations.
-  private String locationName;
-  private String[] items;
-  private String north;
-  private String south;
-  private String east;
-  private String west;
+  private JsonNode locationName;
+  private JsonNode items;
+  private JsonNode north;
+  private JsonNode south;
+  private JsonNode east;
+  private JsonNode west;
 
-  String description;
+  private JsonNode description;
 
-  public Location(String locationName, String[] items, String north, String south, String east,
-      String west, String description) {
+  public Location(JsonNode locationName, JsonNode items, JsonNode north, JsonNode south, JsonNode east,
+      JsonNode west, JsonNode description) {
     this.locationName = locationName;
     this.items = items;
     this.north = north;
@@ -23,61 +25,59 @@ public class Location {
     this.description = description;
   }
 
-  public String getLocationName() {
+  public JsonNode getLocationName() {
     return locationName;
   }
 
-  public void setLocationName(String locationName) {
+  public void setLocationName(JsonNode locationName) {
     this.locationName = locationName;
   }
 
-  public String[] getItems() {
+  public JsonNode getItems() {
     return items;
   }
 
-  public void setItems(String[] items) {
+  public void setItems(JsonNode items) {
     this.items = items;
   }
 
-  public String getNorth() {
+  public JsonNode getNorth() {
     return north;
   }
 
-  public void setNorth(String north) {
+  public void setNorth(JsonNode north) {
     this.north = north;
   }
 
-  public String getSouth() {
+  public JsonNode getSouth() {
     return south;
   }
 
-  public void setSouth(String south) {
+  public void setSouth(JsonNode south) {
     this.south = south;
   }
 
-  public String getEast() {
+  public JsonNode getEast() {
     return east;
   }
 
-  public void setEast(String east) {
+  public void setEast(JsonNode east) {
     this.east = east;
   }
 
-  public String getWest() {
+  public JsonNode getWest() {
     return west;
   }
 
-  public void setWest(String west) {
+  public void setWest(JsonNode west) {
     this.west = west;
   }
 
-  public String getDescription() {
+  public JsonNode getDescription() {
     return description;
   }
 
-  public void setDescription(String description) {
+  public void setDescription(JsonNode description) {
     this.description = description;
   }
-
-
 }

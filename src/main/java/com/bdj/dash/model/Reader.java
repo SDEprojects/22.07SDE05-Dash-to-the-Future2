@@ -22,4 +22,7 @@ public class Reader {
 
   }
 
+  public JsonNode getMoveLocation() {
+    return moveLocation;
+  }
 }

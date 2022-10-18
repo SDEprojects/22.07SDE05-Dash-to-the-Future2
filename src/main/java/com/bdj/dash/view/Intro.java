@@ -6,7 +6,7 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 
-public class AsciiArt {
+public class Intro {
 
   public static final String HELP_COMMANDS =
       "\n These are all the options available to the player. Not all options"

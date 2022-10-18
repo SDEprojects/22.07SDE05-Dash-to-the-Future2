@@ -3,13 +3,14 @@ package com.bdj.dash.controller;
 import com.bdj.dash.model.Location;
 import com.bdj.dash.model.Player;
 import com.bdj.dash.model.State;
-import com.bdj.dash.view.AsciiArt;
+import com.bdj.dash.view.Intro;
+import com.fasterxml.jackson.databind.JsonNode;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Scanner;
-import java.util.stream.Collectors;
+import com.bdj.dash.model.Reader;
 
 // moved methods into game so that we are able to manipulate the player object without having
 // all the other classes talk to each other
@@ -21,11 +22,13 @@ import java.util.stream.Collectors;
 
 public class Game {
 
-  AsciiArt titleArt = new AsciiArt();
+  Intro titleArt = new Intro();
   Player player = new Player();
+
+  Reader reader = new Reader();
   State state;
 
-  HashMap<String,Location> locationMap = new HashMap<>();
+  HashMap<JsonNode,Location> locationMap = new HashMap<>();
 
   ArrayList<String> newItem = new ArrayList<>();
 
@@ -70,88 +73,85 @@ public class Game {
 
     // The information below contains the structure of the world itself. Name of location, items,
     // directions the player can go, and then description of the area.
+    JsonNode location0 = reader.getMoveLocation().get(0);
+    // abandoned house
+    locationMap.put(location0.get("name"), new Location(location0.get("name"),
+        location0.get("items"), location0.get("north"), location0.get("south"),location0.get("east"),location0.get("west"), location0.get("description")));
 
-    locationMap.put("abandoned house", new Location("abandoned house", new
-        String[]{"crossbow"}, "crossroads", null,null,null,
-        "Oops....looks like you got sent to the future. What are you going to do?\n"
-            + "This future world looks like it's in shambles. What happened? Is there any place "
-            + "safe around here, or any way back to the past?\n You see a sign reading \"Locate "
-            + "the Safe Haven if you want to survive\". \n You also see a warning sign in a corner"
-            + " that says, \"Proceed with caution. There are zombies everywhere.\"\n"));
+    JsonNode location1 = reader.getMoveLocation().get(1);
+    // crossroads
+    locationMap.put(location1.get("name"), new Location(location1.get("name"),
+        location1.get("items"), location1.get("north"), location1.get("south"),location1.get("east"),location1.get("west"), location1.get("description")));
 
-    locationMap.put("crossroads", new Location("crossroads", new String[]{}, null,
-        "abandoned house",null,"grocery store", "It doesn't look too safe "
-        + "out here. You can see someone close to you, but don't know who that is."));
+    JsonNode location2 = reader.getMoveLocation().get(2);
+    //grocery store
+    locationMap.put(location2.get("name"), new Location(location2.get("name"),
+        location2.get("items"), location2.get("north"), location2.get("south"),location2.get("east"),location2.get("west"), location2.get("description")));
 
-    locationMap.put("grocery store", new Location("grocery store", new String[]{},
-        "abandoned fairgrounds", null,"crossroads",null, "The food"
-        + " here doesn't look edible"));
+    JsonNode location3 = reader.getMoveLocation().get(3);
+    //abandoned fairgrounds
+    locationMap.put(location3.get("name"), new Location(location3.get("name"),
+        location3.get("items"), location3.get("north"), location3.get("south"),location3.get("east"),location3.get("west"), location3.get("description")));
 
-    locationMap.put("abandoned fairgrounds", new Location("abandoned fairgrounds",
-        new String[]{"spiked bat"}, "street pharmaceutical", "grocery store",null,
-        "invasion woods", "This place probably used to be up and popping."));
+    JsonNode location4 = reader.getMoveLocation().get(4);
+    // street pharmaceuticals
+    locationMap.put(location4.get("name"), new Location(location4.get("name"),
+        location4.get("items"), location4.get("north"), location4.get("south"),location4.get("east"),location4.get("west"), location4.get("description")));
 
-    locationMap.put("street pharmaceutical", new Location("street pharmaceutical",
-        new String[]{"duct tape"}, null, "abandoned fairgrounds","radioactive club",
-        null, "Oh look! You see a man in a trench coat oh wait its just the"
-        + " Street Pharmaceuticals."));
+    JsonNode location5 = reader.getMoveLocation().get(5);
+    //radioactive club
+    locationMap.put(location5.get("name"), new Location(location5.get("name"),
+        location5.get("items"), location5.get("north"), location5.get("south"),location5.get("east"),location5.get("west"), location5.get("description")));
 
-    locationMap.put("radioactive club", new Location("radioactive club", new String[]{},
-        null, null,null,"street pharmaceutical", "What kind of club is"
-        + " this? Looks like you have encountered 2 zombies. You can't kill them both.\n"
-        + " YOU DIED!"));
+    JsonNode location6 = reader.getMoveLocation().get(6);
+    // invasion woods
+    locationMap.put(location6.get("name"), new Location(location6.get("name"),
+        location6.get("items"), location6.get("north"), location6.get("south"),location6.get("east"),location6.get("west"), location6.get("description")));
 
-    locationMap.put("invasion woods", new Location("invasion woods", new String[]{},
-        "rusty gun store", null,"abandoned fairgrounds",null, "Oh, you"
-        + " found yourself in the middle of the woods. You have watched way too many horror films"
-        + " to know what happens. Push through as fast as you can!\n Wait, what is that? Someone is"
-        + " watching you from the trees above."));
+    JsonNode location7 = reader.getMoveLocation().get(7);
+    //rusty gun store
+    locationMap.put(location7.get("name"), new Location(location7.get("name"),
+        location7.get("items"), location7.get("north"), location7.get("south"),location7.get("east"),location7.get("west"), location7.get("description")));
 
-    locationMap.put("rusty gun store", new Location("rusty gun store",
-        new String[]{"gun"}, "shanty docks", "invasion woods",null,null,
-        "Well, this looks like a useful place. Let's see if they have anything. You "
-            + "definitely need a gun moving forward."));
+    JsonNode location8 = reader.getMoveLocation().get(8);
+    //shanty docks
+    locationMap.put(location8.get("name"), new Location(location8.get("name"),
+        location8.get("items"), location8.get("north"), location8.get("south"),location8.get("east"),location8.get("west"), location8.get("description")));
 
-    locationMap.put("shanty docks", new Location("shanty docks", new String[]{"raft"},
-        null, "rusty gun store","toxic river",null, "This is exciting."
-        + " You see a bunch of rotten rafts. Should you use a raft to cross the toxic river?\n"));
+    JsonNode location9 = reader.getMoveLocation().get(9);
+    // toxic river
+    locationMap.put(location9.get("name"), new Location(location9.get("name"),
+        location9.get("items"), location9.get("north"), location9.get("south"),location9.get("east"),location9.get("west"), location9.get("description")));
 
-    locationMap.put("toxic river", new Location("toxic river", new String[]{},
-        "not deadly depths", null,"boss room","zombie motel caves",
-        "Oh man! You must be really thirsty from the long trip. But wait, this rancid"
-            + " water cannot be trusted. Think wisely before you proceed!"));
+    JsonNode location10 = reader.getMoveLocation().get(10);
+    //zombie motel caves
+    locationMap.put(location10.get("name"), new Location(location10.get("name"),
+        location10.get("items"), location10.get("north"), location10.get("south"),location10.get("east"),location10.get("west"), location10.get("description")));;
 
-    locationMap.put("zombie motel caves", new Location("zombie motel caves",
-        new String[]{}, "invasion woods", "secret bunker",null,null,
-        "Who do you think you encounter here? Duh - zombies.\n"));
+    JsonNode location11 = reader.getMoveLocation().get(11);
+    //secret bunker
+    locationMap.put(location11.get("name"), new Location(location11.get("name"),
+        location11.get("items"), location11.get("north"), location11.get("south"),location11.get("east"),location11.get("west"), location11.get("description")));
 
-    locationMap.put("secret bunker", new Location("secret bunker", new String[]{},
-        "zombie motel caves", "portal",null,null, "Well, that looks"
-        + " like a safe place to hide. What is that piece of paper sticking out from beneath the "
-        + "rocks? It is a note that reads, \"The future of safe haven lies in your hands. Take this"
-        + " note to the Safe Haven to save the people and restore peace forever.\"\n"));
+    JsonNode location12 = reader.getMoveLocation().get(12);
+    // portal
+    locationMap.put(location12.get("name"), new Location(location12.get("name"),
+        location12.get("items"), location12.get("north"), location12.get("south"),location12.get("east"),location12.get("west"), location12.get("description")));
 
-    locationMap.put("portal", new Location("portal", new String[]{}, "secret "
-        + "bunker", null,null,null, "Oh look, fled to the portal instead of"
-        + ". Saving everyone else. Congratulations you have gone back to the past. I wish you the"
-        + " best with door-dashing. Be aware of the abandoned places in the future!"));
+    JsonNode location13 = reader.getMoveLocation().get(13);
+    //not deadly depths
+    locationMap.put(location13.get("name"), new Location(location13.get("name"),
+        location13.get("items"), location13.get("north"), location13.get("south"),location13.get("east"),location13.get("west"), location13.get("description")));
 
-    locationMap.put("not deadly depths", new Location("not deadly depths",
-        new String[]{}, null, null,null,null, "I guess those depths "
-        + "were deadly after all. You Died!"));
+    JsonNode location14 = reader.getMoveLocation().get(14);
+    //boss room
+    locationMap.put(location14.get("name"), new Location(location14.get("name"),
+        location14.get("items"), location14.get("north"), location14.get("south"),location14.get("east"),location14.get("west"), location14.get("description")));
 
-    locationMap.put("boss room", new Location("boss room", new String[]{},
-        "safe haven", null,null,null, "Phew! After all that crazy "
-        + "adventure, you made it to the Boss Room. The good thing is, you see safe haven directly"
-        + " to the north. However, you have to go through the Super Zombie Baby before you make it "
-        + "through to the other side. Dig through your inventory to find the most destructive"
-        + " weapon!"));
-
-    locationMap.put("safe haven", new Location("safe haven", new String[]{}, null,
-        null,null,null, "Congratulations! You have successfully overcome "
-        + "all the obstacles and reached Safe Haven. If only you could find a way back to the past."
-        + " The people appreciate your selfless help. You can now have all the happiness you ever"
-        + " imagined.\n"));
+    JsonNode location15 = reader.getMoveLocation().get(15);
+    //safe haven
+    locationMap.put(location15.get("name"), new Location(location15.get("name"),
+        location15.get("items"), location15.get("north"), location15.get("south"),location15.get("east"),location15.get("west"), location15.get("description")));;
   }
 
   // This allows users to type commands.
@@ -165,7 +165,7 @@ public class Game {
   public void processCommand(String commandString) {
    String[] command = commandString.split(" ");
     if (command[0].equals("help")) {
-      System.out.println(AsciiArt.HELP_COMMANDS);
+      System.out.println(Intro.HELP_COMMANDS);
     } else if (command[0].equals("quit")) {
       System.out.println("See you next time");
       setState(State.LOSE);
