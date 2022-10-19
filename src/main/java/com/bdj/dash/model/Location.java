@@ -1,26 +1,36 @@
 package com.bdj.dash.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.JsonNode;
+
 public class Location {
 
-  //all of the info about the location
+  //This class contains mostly getter/setter and variables for locations.
+  @JsonProperty("name")
   private String locationName;
-  private String[] items;
+  private String items;
   private String north;
   private String south;
   private String east;
   private String west;
+  private String npc;
+  private String npcQuote;
+  private String description;
 
-  String description;
-
-  public Location(String locationName, String[] items, String north, String south, String east,
+  public Location(String locationName, String items, String npc, String npcQuote, String north, String south, String east,
       String west, String description) {
     this.locationName = locationName;
     this.items = items;
+    this.npc = npc;
+    this.npcQuote = npcQuote;
     this.north = north;
     this.south = south;
     this.east = east;
     this.west = west;
     this.description = description;
+  }
+
+  public Location() {
   }
 
   public String getLocationName() {
@@ -31,12 +41,28 @@ public class Location {
     this.locationName = locationName;
   }
 
-  public String[] getItems() {
+  public String getItems() {
     return items;
   }
 
-  public void setItems(String[] items) {
+  public void setItems(String items) {
     this.items = items;
+  }
+
+  public String getNpc() {
+    return npc;
+  }
+
+  public void setNpc(String npc) {
+    this.npc = npc;
+  }
+
+  public String getNpcQuote() {
+    return npcQuote;
+  }
+
+  public void setNpcQuote(String npcQuote) {
+    this.npcQuote = npcQuote;
   }
 
   public String getNorth() {
@@ -78,6 +104,4 @@ public class Location {
   public void setDescription(String description) {
     this.description = description;
   }
-
-
 }

@@ -1,0 +1,178 @@
+[
+  {
+    "name": "abandoned house",
+    "description": "\"Oops....looks like you got sent to the future. \nWhat are you going to do? This future world looks like it's in shambles. What happened? \nIs there any place safe around here, or any way back to the past? \nYou see a sign reading \"Safe Haven\". \nYou can also see a warning sign in a corner that says, \n\"Proceed with caution. There are zombies everywhere.\"\n",
+    "items": "crossbow",
+    "npc" : "",
+    "npcQuote": "",
+    "north": "crossroads",
+    "south": "",
+    "east": "",
+    "west": ""
+  },
+  {
+    "name": "crossroads",
+    "description": "It doesn't look too safe out here. \nYou can see someone close to you, but don't know who that is.",
+    "items": "",
+    "npc" : "Road Warrior",
+    "npcQuote": "Since the apocalypse started, there is not much left in this world. \nYou have to find the safe haven to be safe. \nMake sure to pick up important items and weapons along the way in case you come across any zombies.",
+    "north": "",
+    "south": "abandoned house",
+    "east": "",
+    "west": "grocery store"
+  },
+  {
+    "name": "grocery store",
+    "description": "The food here doesn't look edible.",
+    "items": "",
+    "npc" : "",
+    "npcQuote": "",
+    "north": "abandoned fairgrounds",
+    "south": "",
+    "east": "crossroads",
+    "west": ""
+  },
+  {
+    "name": "abandoned fairgrounds",
+    "description": "This place probably used to be up and popping.",
+    "items": "spiked bat",
+    "npc" : "",
+    "npcQuote": "",
+    "north": "street pharmaceutical",
+    "south": "grocery store",
+    "east": "",
+    "west": "invasion woods"
+  },
+  {
+    "name": "street pharmaceutical",
+    "description": "Oh look! \nYou see a man in a trench coat oh wait its just the Street Pharmaceuticals.",
+    "items": "duct tape",
+    "npc" : "",
+    "npcQuote": "",
+    "north": "",
+    "south": "abandoned fairgrounds",
+    "east": "radioactive club",
+    "west": ""
+  },
+  {
+    "name": "radioactive club",
+    "description": "What kind of club is this? Looks like you have encountered 2 zombies. \nYou can't kill them both. YOU DIED!",
+    "items": "",
+    "npc" : "",
+    "npcQuote": "",
+    "north": "",
+    "south": "",
+    "east": "",
+    "west": "street pharmaceutical"
+  },
+  {
+    "name": "invasion woods",
+    "description": "Oh, you found yourself in the middle of the woods. \nYou have watched way too many horror films to know what happens. \nPush through as fast as you can! Wait, what is that? \nSomeone is watching you from the trees above.",
+    "items": "",
+    "npc" : "Blake the birdwatcher",
+    "npcQuote": "The birds have told me to watch out for the deadly cliffs! \nI hear that there is a monster blocking the safe haven",
+    "north": "rusty gun store",
+    "south": "",
+    "east": "abandoned fairgrounds",
+    "west": ""
+  },
+  {
+    "name": "rusty gun store",
+    "description": "Well, this looks like a useful place. \nLet's see if they have anything. \nYou definitely need a gun moving forward.",
+    "items": "gun",
+    "npc" : "",
+    "npcQuote": "",
+    "north": "shanty docks",
+    "south": "invasion woods",
+    "east": "",
+    "west": ""
+  },
+  {
+    "name": "shanty docks",
+    "description": "This is exciting. You see a bunch of rotten rafts. \nShould you use a raft to cross the toxic river?",
+    "items": "raft",
+    "npc" : "Apocalyptic Sailor",
+    "npcQuote": "Hey, you might need the raft to survive. Be sure not to let Jack on the raft!",
+    "north": "",
+    "south": "rusty gun store",
+    "east": "toxic river",
+    "west": ""
+  },
+  {
+    "name": "toxic river",
+    "description": "Oh man! You must be really thirsty from the long trip. \nBut wait, this rancid water cannot be trusted. \nThink wisely before you proceed!",
+    "items": "",
+    "npc" : "",
+    "npcQuote": "",
+    "north": "not deadly depths",
+    "south": "",
+    "east": "boss room",
+    "west": "zombie motel caves"
+  },
+  {
+    "name": "zombie motel caves",
+    "description": "Who do you think you encounter here? \nDuh - zombies.",
+    "items": "",
+    "npc" : "",
+    "npcQuote": "",
+    "north": "invasion woods",
+    "south": "secret bunker",
+    "east": "",
+    "west": ""
+  },
+  {
+    "name": "secret bunker",
+    "description": "Well, that looks like a safe place to hide. \nWhat is that piece of paper sticking out from beneath the rocks? \nIt is a note that reads, \n'The future of safe haven lies in your hands. Take this note to the Safe Haven to save the people and restore peace forever.'",
+    "items": "",
+    "npc" : "",
+    "npcQuote": "",
+    "north": "zombie motel caves",
+    "south": "portal",
+    "east": "",
+    "west": ""
+  },
+  {
+    "name": "portal",
+    "description": "Oh look, you fled to the portal instead of saving everyone else. \nCongratulations you have gone back to the past. \nI wish you the best with door-dashing. \nBe aware of the abandoned places in the future!",
+    "items": "",
+    "npc" : "",
+    "npcQuote": "",
+    "north": "secret bunker",
+    "south": "",
+    "east": "",
+    "west": ""
+  },
+  {
+    "name": "not deadly depths",
+    "description": "I guess those depths were deadly after all. \nYou Died!",
+    "items": "",
+    "npc" : "",
+    "npcQuote": "",
+    "north": "",
+    "south": "",
+    "east": "",
+    "west": ""
+  },
+  {
+    "name": "boss room",
+    "description": "Phew! After all that crazy adventure, you made it to the Boss Room. \nThe good thing is, you see safe haven directly to the north. \nHowever, you have to go through the Super Zombie Baby before you make it through to the other side. \nDig through your inventory to find the most destructive weapon!",
+    "items": "",
+    "npc" : "",
+    "npcQuote": "",
+    "north": "safe haven",
+    "south": "",
+    "east": "",
+    "west": ""
+  },
+  {
+    "name": "safe haven",
+    "description": "Congratulations! You have successfully overcome all the obstacles and reached Safe Haven. \nIf only you could find a way back to the past. \nThe people appreciate your selfless help. \nYou can now have all the happiness you ever imagined.",
+    "items": "",
+    "npc" : "",
+    "npcQuote": "",
+    "north": "",
+    "south": "",
+    "east": "",
+    "west": ""
+  }
+]
