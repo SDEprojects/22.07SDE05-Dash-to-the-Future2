@@ -116,6 +116,7 @@ public class Game {
     } else if (command[0].equals("get")) {
       addToInventory();
     } else if (command[0].equals("talk")) {
+      System.out.println();
       talkToNpc();
     } else {
       System.out.println("Invalid command. Please enter valid game command such as: \n"
@@ -173,7 +174,7 @@ public class Game {
     if (currentLocation.getNpc().isEmpty()) {
       System.out.println("There is no one to talk to.\n");
     } else {
-      System.out.println(currentLocation.getNpc() + "says: " + currentLocation.getNpcQuote());
+      System.out.println(currentLocation.getNpc() + " says: " + currentLocation.getNpcQuote());
     }
   }
 
