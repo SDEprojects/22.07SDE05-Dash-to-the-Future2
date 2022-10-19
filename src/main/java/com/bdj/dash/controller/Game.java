@@ -38,16 +38,12 @@ public class Game {
     titleArt.instructions();
     startGame();
 
-    String userName = player.playerName();
-    if (userName.equals("quit")) {
-      System.out.println("I guess you didn't want to play.");
-      return;
-    }
-
     while (!state.isTerminal()) {
       statusUpdate();
       inputCommand();
     }
+
+
   }
 
   // This section is displayed when you run the game.
@@ -58,14 +54,24 @@ public class Game {
     String command = input.nextLine().toLowerCase().trim();
     if (command.equals("y")) {
       setState(State.PLAY);
+      playerName();
       createMap();
       player.setLocation(gameMap.get("abandoned house").getLocationName());
-      System.out.println("The game has begun!");
+      System.out.println("The game has begun!\n");
     } else if (command.equals("n")) {
       System.out.println("Maybe next time!");
       setState(State.LOSE);
     } else {
       System.out.println("Invalid command. Please enter y/n");
+      startGame();
+    }
+  }
+
+  private void playerName() {
+    String userName = player.playerName();
+    if (userName.equals("quit")) {
+      System.out.println("I guess you didn't want to play.");
+      return;
     }
   }
 
@@ -77,9 +83,7 @@ public class Game {
       Location[] locations = mapper.readValue(getClass().getClassLoader().getResourceAsStream("location.json"),Location[].class);
       Map<String,Location> map = Arrays.stream(locations)
               .collect(Collectors.toMap(Location::getLocationName, (loc) -> loc));
-      Location startingLocation = locations[0];
       gameMap = map;
-      System.out.println(gameMap.get("abandoned house").getLocationName());
     } catch (IOException e) {
       throw new RuntimeException(e); // fixme
     }
@@ -110,7 +114,6 @@ public class Game {
       startGame();
     }else if (command[0].equals("get") ){
       addToInventory();
-      removeItemFromArea();
     } else {
       System.out.println("Invalid command. Please enter valid game command such as: \n"
           + "go <north, south, east, west>, help, quit");
@@ -146,19 +149,15 @@ public class Game {
 
     String item = gameMap.get(player.getLocation()).getItems();
 
-    if (item != null){
+    if (!item.isEmpty() && !newItem.contains(item)){
       newItem.add(item);
       player.setInventory(newItem);
       // reverse so that newest item added is printed to user
       Collections.reverse(newItem);
-      System.out.println(newItem.get(0) + " has been added to your inventory");
+      System.out.println(newItem.get(0) + " has been added to your inventory \n");
     }else{
-      System.out.println("There is nothing to get");
+      System.out.println("There is nothing to get \n");
     }
-  }
-
-  public void removeItemFromArea(){
-
   }
 
   // This handles the information about the players current health
@@ -166,10 +165,10 @@ public class Game {
   public void statusUpdate(){
     Location currentLocation = gameMap.get(player.getLocation());
     int pHp = player.getHealth();
-    System.out.println(player.getName() + " your current health is = " + pHp);
-    System.out.println("You are currently at: " + currentLocation.getLocationName());
+    System.out.println("You are currently at: " + currentLocation.getLocationName() + "\n");
     System.out.println(currentLocation.getDescription());
     showPossibleDirections();
+    System.out.println("\n" + player.getName() + " your current health is = " + pHp + "\n");
     showItems();
     showInventory();
   }
@@ -178,7 +177,7 @@ public class Game {
   // this prints the players current inventory
   public void showInventory(){
     if (player.getInventory() == null){
-      System.out.println("your inventory is empty");
+      System.out.println("your inventory is empty \n");
     } else{
       System.out.println("Your inventory currently has: " + player.getInventory());
     }
@@ -191,7 +190,7 @@ public class Game {
     if (!item.isEmpty() && !newItem.contains(item)){
       System.out.println("You see: " + item);
     }else{
-      System.out.println("You see no items in this area.");
+      System.out.println("You see no items in this area. \n");
     }
   }
 
