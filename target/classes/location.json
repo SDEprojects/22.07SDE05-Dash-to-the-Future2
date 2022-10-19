@@ -4,9 +4,9 @@
     "description": "\"Oops....looks like you got sent to the future. What are you going to do? This future world looks like it's in shambles. What happened? Is there any place \"\n            + \"safe around here, or any way back to the past? You see a sign reading \\\"Safe Haven\\\"\"\n            + \". \\n You can also see a warning sign in a corner that says, \\\"Proceed with caution.\"\n            + \" There are zombies everywhere.\\\"\\n\"",
     "items": "crossbow",
     "north": "crossroads",
-    "south": "Nothing is this way",
-    "east": "Nothing is this way",
-    "west": "Nothing is this way"
+    "south": "",
+    "east": "",
+    "west": ""
   },
   {
     "name": "crossroads",
@@ -14,7 +14,7 @@
     "items": "",
     "north": "",
     "south": "abandoned house",
-    "east": "null",
+    "east": "",
     "west": "grocery store"
   },
   {
@@ -24,7 +24,7 @@
     "north": "abandoned fairgrounds",
     "south": "",
     "east": "crossroads",
-    "west": "null"
+    "west": ""
   },
   {
     "name": "abandoned fairgrounds",
@@ -32,7 +32,7 @@
     "items": "spiked bat",
     "north": "street pharmaceutical",
     "south": "grocery store",
-    "east": "null",
+    "east": "",
     "west": "invasion woods"
   },
   {

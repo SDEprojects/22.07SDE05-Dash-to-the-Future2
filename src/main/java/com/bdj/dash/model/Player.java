@@ -9,7 +9,7 @@ public class Player {
   int health = 100;
   String name;
 
-  String location;
+ String location;
 
   ArrayList<String> inventory;
 
@@ -51,4 +51,5 @@ public class Player {
   public void setHealth(int health) {
     this.health = health;
   }
+
 }
