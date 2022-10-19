@@ -1,18 +1,22 @@
 package com.bdj.dash.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.JsonNode;
+
 public class Location {
 
   //This class contains mostly getter/setter and variables for locations.
+  @JsonProperty("name")
   private String locationName;
-  private String[] items;
+  private String items;
   private String north;
   private String south;
   private String east;
   private String west;
 
-  String description;
+  private String description;
 
-  public Location(String locationName, String[] items, String north, String south, String east,
+  public Location(String locationName, String items, String north, String south, String east,
       String west, String description) {
     this.locationName = locationName;
     this.items = items;
@@ -23,6 +27,9 @@ public class Location {
     this.description = description;
   }
 
+  public Location() {
+  }
+
   public String getLocationName() {
     return locationName;
   }
@@ -31,11 +38,11 @@ public class Location {
     this.locationName = locationName;
   }
 
-  public String[] getItems() {
+  public String getItems() {
     return items;
   }
 
-  public void setItems(String[] items) {
+  public void setItems(String items) {
     this.items = items;
   }
 
@@ -78,6 +85,4 @@ public class Location {
   public void setDescription(String description) {
     this.description = description;
   }
-
-
 }

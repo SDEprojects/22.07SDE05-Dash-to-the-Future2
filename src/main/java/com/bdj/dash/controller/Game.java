@@ -3,12 +3,16 @@ package com.bdj.dash.controller;
 import com.bdj.dash.model.Location;
 import com.bdj.dash.model.Player;
 import com.bdj.dash.model.State;
-import com.bdj.dash.view.AsciiArt;
+import com.bdj.dash.view.Intro;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
+import com.bdj.dash.model.Reader;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 // moved methods into game so that we are able to manipulate the player object without having
@@ -21,12 +25,12 @@ import java.util.stream.Collectors;
 
 public class Game {
 
-  AsciiArt titleArt = new AsciiArt();
+  Intro titleArt = new Intro();
   Player player = new Player();
+
+  Reader reader = new Reader();
   State state;
-
-  HashMap<String,Location> locationMap = new HashMap<>();
-
+  Map<String,Location> gameMap;
   ArrayList<String> newItem = new ArrayList<>();
 
   public void playGame() {
@@ -55,7 +59,7 @@ public class Game {
     if (command.equals("y")) {
       setState(State.PLAY);
       createMap();
-      player.setLocation("abandoned house");
+      player.setLocation(gameMap.get("abandoned house").getLocationName());
       System.out.println("The game has begun!");
     } else if (command.equals("n")) {
       System.out.println("Maybe next time!");
@@ -67,92 +71,19 @@ public class Game {
 
   // creating the map
   public void createMap(){
+    ObjectMapper mapper = new ObjectMapper();
 
-    // The information below contains the structure of the world itself. Name of location, items,
-    // directions the player can go, and then description of the area.
-
-    locationMap.put("abandoned house", new Location("abandoned house", new
-        String[]{"crossbow"}, "crossroads", null,null,null,
-        "Oops....looks like you got sent to the future. What are you going to do?\n"
-            + "This future world looks like it's in shambles. What happened? Is there any place "
-            + "safe around here, or any way back to the past?\n You see a sign reading \"Locate "
-            + "the Safe Haven if you want to survive\". \n You also see a warning sign in a corner"
-            + " that says, \"Proceed with caution. There are zombies everywhere.\"\n"));
-
-    locationMap.put("crossroads", new Location("crossroads", new String[]{}, null,
-        "abandoned house",null,"grocery store", "It doesn't look too safe "
-        + "out here. You can see someone close to you, but don't know who that is."));
-
-    locationMap.put("grocery store", new Location("grocery store", new String[]{},
-        "abandoned fairgrounds", null,"crossroads",null, "The food"
-        + " here doesn't look edible"));
-
-    locationMap.put("abandoned fairgrounds", new Location("abandoned fairgrounds",
-        new String[]{"spiked bat"}, "street pharmaceutical", "grocery store",null,
-        "invasion woods", "This place probably used to be up and popping."));
-
-    locationMap.put("street pharmaceutical", new Location("street pharmaceutical",
-        new String[]{"duct tape"}, null, "abandoned fairgrounds","radioactive club",
-        null, "Oh look! You see a man in a trench coat oh wait its just the"
-        + " Street Pharmaceuticals."));
-
-    locationMap.put("radioactive club", new Location("radioactive club", new String[]{},
-        null, null,null,"street pharmaceutical", "What kind of club is"
-        + " this? Looks like you have encountered 2 zombies. You can't kill them both.\n"
-        + " YOU DIED!"));
-
-    locationMap.put("invasion woods", new Location("invasion woods", new String[]{},
-        "rusty gun store", null,"abandoned fairgrounds",null, "Oh, you"
-        + " found yourself in the middle of the woods. You have watched way too many horror films"
-        + " to know what happens. Push through as fast as you can!\n Wait, what is that? Someone is"
-        + " watching you from the trees above."));
-
-    locationMap.put("rusty gun store", new Location("rusty gun store",
-        new String[]{"gun"}, "shanty docks", "invasion woods",null,null,
-        "Well, this looks like a useful place. Let's see if they have anything. You "
-            + "definitely need a gun moving forward."));
-
-    locationMap.put("shanty docks", new Location("shanty docks", new String[]{"raft"},
-        null, "rusty gun store","toxic river",null, "This is exciting."
-        + " You see a bunch of rotten rafts. Should you use a raft to cross the toxic river?\n"));
-
-    locationMap.put("toxic river", new Location("toxic river", new String[]{},
-        "not deadly depths", null,"boss room","zombie motel caves",
-        "Oh man! You must be really thirsty from the long trip. But wait, this rancid"
-            + " water cannot be trusted. Think wisely before you proceed!"));
-
-    locationMap.put("zombie motel caves", new Location("zombie motel caves",
-        new String[]{}, "invasion woods", "secret bunker",null,null,
-        "Who do you think you encounter here? Duh - zombies.\n"));
-
-    locationMap.put("secret bunker", new Location("secret bunker", new String[]{},
-        "zombie motel caves", "portal",null,null, "Well, that looks"
-        + " like a safe place to hide. What is that piece of paper sticking out from beneath the "
-        + "rocks? It is a note that reads, \"The future of safe haven lies in your hands. Take this"
-        + " note to the Safe Haven to save the people and restore peace forever.\"\n"));
-
-    locationMap.put("portal", new Location("portal", new String[]{}, "secret "
-        + "bunker", null,null,null, "Oh look, fled to the portal instead of"
-        + ". Saving everyone else. Congratulations you have gone back to the past. I wish you the"
-        + " best with door-dashing. Be aware of the abandoned places in the future!"));
-
-    locationMap.put("not deadly depths", new Location("not deadly depths",
-        new String[]{}, null, null,null,null, "I guess those depths "
-        + "were deadly after all. You Died!"));
-
-    locationMap.put("boss room", new Location("boss room", new String[]{},
-        "safe haven", null,null,null, "Phew! After all that crazy "
-        + "adventure, you made it to the Boss Room. The good thing is, you see safe haven directly"
-        + " to the north. However, you have to go through the Super Zombie Baby before you make it "
-        + "through to the other side. Dig through your inventory to find the most destructive"
-        + " weapon!"));
-
-    locationMap.put("safe haven", new Location("safe haven", new String[]{}, null,
-        null,null,null, "Congratulations! You have successfully overcome "
-        + "all the obstacles and reached Safe Haven. If only you could find a way back to the past."
-        + " The people appreciate your selfless help. You can now have all the happiness you ever"
-        + " imagined.\n"));
-  }
+    try {
+      Location[] locations = mapper.readValue(getClass().getClassLoader().getResourceAsStream("location.json"),Location[].class);
+      Map<String,Location> map = Arrays.stream(locations)
+              .collect(Collectors.toMap(Location::getLocationName, (loc) -> loc));
+      Location startingLocation = locations[0];
+      gameMap = map;
+      System.out.println(gameMap.get("abandoned house").getLocationName());
+    } catch (IOException e) {
+      throw new RuntimeException(e); // fixme
+    }
+    }
 
   // This allows users to type commands.
   public void inputCommand() {
@@ -165,12 +96,12 @@ public class Game {
   public void processCommand(String commandString) {
    String[] command = commandString.split(" ");
     if (command[0].equals("help")) {
-      System.out.println(AsciiArt.HELP_COMMANDS);
+      System.out.println(Intro.HELP_COMMANDS);
     } else if (command[0].equals("quit")) {
       System.out.println("See you next time");
       setState(State.LOSE);
     } else if(command[0].equals("go")){
-      String currentLocation = player.getLocation();
+      Location currentLocation = gameMap.get(player.getLocation());
       movePlayer(command, currentLocation);
       if (currentLocation.equals( player.getLocation())){
         System.out.println("You can't go this way, there is nothing there.");
@@ -189,33 +120,34 @@ public class Game {
 
   // this handles how the user moves around the world and keeps track of the player.
 
-  private void movePlayer(String[] command, String currentLocation) {
-    String newLocation;
+  private void movePlayer(String[] command, Location currentLocation) {
+    Location newLocation;
+
     if(command[1].equals("north")){
       // if null keep location, if not change location
-      newLocation = locationMap.get(currentLocation).getNorth() == null ? currentLocation :
-          locationMap.get(currentLocation).getNorth();
+       newLocation = currentLocation.getNorth().isEmpty() ? currentLocation : gameMap.get(currentLocation.getNorth());
+
     }else if(command[1].equals("south")){
-      newLocation = locationMap.get(currentLocation).getSouth() == null ? currentLocation :
-          locationMap.get(currentLocation).getSouth();
+      newLocation = currentLocation.getSouth().isEmpty() ? currentLocation : gameMap.get(currentLocation.getSouth());
+
     }else if(command[1].equals("west")){
-      newLocation = locationMap.get(currentLocation).getWest() == null ? currentLocation :
-          locationMap.get(currentLocation).getWest();
+      newLocation = currentLocation.getWest().isEmpty() ? currentLocation : gameMap.get(currentLocation.getWest());
+
     }else if(command[1].equals("east")){
-      newLocation = locationMap.get(currentLocation).getEast() == null ? currentLocation :
-          locationMap.get(currentLocation).getEast();
+      newLocation = currentLocation.getEast().isEmpty() ? currentLocation : gameMap.get(currentLocation.getEast());
     } else{
       newLocation = currentLocation;
       System.out.println("not a valid direction, try another!");
     }
-    player.setLocation(newLocation);
+    player.setLocation(newLocation.getLocationName());
   }
   // This handles how the user manipulates the inventory from picking up items to using items.
   public void addToInventory(){
 
-    if (!locationMap.get(player.getLocation()).getItems().equals(null)){
-      String[] item = locationMap.get(player.getLocation()).getItems();
-      newItem.add(item[0]);
+    String item = gameMap.get(player.getLocation()).getItems();
+
+    if (item != null){
+      newItem.add(item);
       player.setInventory(newItem);
       // reverse so that newest item added is printed to user
       Collections.reverse(newItem);
@@ -232,10 +164,11 @@ public class Game {
   // This handles the information about the players current health
 
   public void statusUpdate(){
+    Location currentLocation = gameMap.get(player.getLocation());
     int pHp = player.getHealth();
     System.out.println(player.getName() + " your current health is = " + pHp);
-    System.out.println("You are currently at: " + player.getLocation());
-    System.out.println(locationMap.get(player.getLocation()).getDescription());
+    System.out.println("You are currently at: " + currentLocation.getLocationName());
+    System.out.println(currentLocation.getDescription());
     showPossibleDirections();
     showItems();
     showInventory();
@@ -253,10 +186,10 @@ public class Game {
 
   // this shows the items in the zone, not the inventory.
   public void showItems(){
-    String[] item = locationMap.get(player.getLocation()).getItems();
+    String item = gameMap.get(player.getLocation()).getItems();
 
-    if (locationMap.get(player.getLocation()).getItems().length > 0 && !newItem.contains(item[0])){
-      System.out.println("You see: " + Arrays.toString(item));
+    if (!item.isEmpty() && !newItem.contains(item)){
+      System.out.println("You see: " + item);
     }else{
       System.out.println("You see no items in this area.");
     }
@@ -266,32 +199,29 @@ public class Game {
   // This displays the directions that the player has currently available to them.
   public void showPossibleDirections(){
 
-    String north = locationMap.get(player.getLocation()).getNorth();
-    if(north == null){
+    Location currentLocation = gameMap.get(player.getLocation());
+    if(currentLocation.getNorth().isEmpty()){
       System.out.println("North: Nothing this way");
     } else{
-      System.out.println("North: " + north);
+      System.out.println("North: " + currentLocation.getNorth());
     }
 
-    String south = locationMap.get(player.getLocation()).getSouth();
-    if(south == null){
+    if(currentLocation.getSouth().isEmpty()){
       System.out.println("South: Nothing this way");
     } else{
-      System.out.println("South: " + south);
+      System.out.println("South: " + currentLocation.getSouth());
     }
 
-    String west = locationMap.get(player.getLocation()).getWest();
-    if(west == null){
+    if(currentLocation.getWest().isEmpty()){
       System.out.println("West:  Nothing this way");
     } else{
-      System.out.println("West: " + west);
+      System.out.println("West: " + currentLocation.getWest());
     }
 
-    String east = locationMap.get(player.getLocation()).getEast();
-    if(east == null){
+    if(currentLocation.getEast().isEmpty()){
       System.out.println("East:  Nothing this way");
     } else{
-      System.out.println("East: " + east);
+      System.out.println("East: " + currentLocation.getEast());
     }
 
   }
@@ -301,13 +231,5 @@ public class Game {
 
   public void setState(State state) {
     this.state = state;
-  }
-
-  public HashMap<String, Location> getLocationMap() {
-    return locationMap;
-  }
-
-  public void setLocationMap(HashMap<String, Location> locationMap) {
-    this.locationMap = locationMap;
   }
 }
