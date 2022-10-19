@@ -30,7 +30,7 @@ public class Game {
 
   Reader reader = new Reader();
   State state;
-  Map<String,Location> gameMap;
+  Map<String, Location> gameMap;
   ArrayList<String> newItem = new ArrayList<>();
 
   public void playGame() {
@@ -76,18 +76,19 @@ public class Game {
   }
 
   // creating the map
-  public void createMap(){
+  public void createMap() {
     ObjectMapper mapper = new ObjectMapper();
 
     try {
-      Location[] locations = mapper.readValue(getClass().getClassLoader().getResourceAsStream("location.json"),Location[].class);
-      Map<String,Location> map = Arrays.stream(locations)
-              .collect(Collectors.toMap(Location::getLocationName, (loc) -> loc));
+      Location[] locations = mapper.readValue(
+          getClass().getClassLoader().getResourceAsStream("location.json"), Location[].class);
+      Map<String, Location> map = Arrays.stream(locations)
+          .collect(Collectors.toMap(Location::getLocationName, (loc) -> loc));
       gameMap = map;
     } catch (IOException e) {
       throw new RuntimeException(e); // fixme
     }
-    }
+  }
 
   // This allows users to type commands.
   public void inputCommand() {
@@ -98,22 +99,24 @@ public class Game {
   }
 
   public void processCommand(String commandString) {
-   String[] command = commandString.split(" ");
+    String[] command = commandString.split(" ");
     if (command[0].equals("help")) {
       System.out.println(Intro.HELP_COMMANDS);
     } else if (command[0].equals("quit")) {
       System.out.println("See you next time");
       setState(State.LOSE);
-    } else if(command[0].equals("go")){
+    } else if (command[0].equals("go")) {
       Location currentLocation = gameMap.get(player.getLocation());
       movePlayer(command, currentLocation);
-      if (currentLocation.equals( player.getLocation())){
+      if (currentLocation.equals(player.getLocation())) {
         System.out.println("You can't go this way, there is nothing there.");
       }
-    } else if(command[0].equals("new") && command[1].equals("game")){
+    } else if (command[0].equals("new") && command[1].equals("game")) {
       startGame();
-    }else if (command[0].equals("get") ){
+    } else if (command[0].equals("get")) {
       addToInventory();
+    } else if (command[0].equals("talk")) {
+      talkToNpc();
     } else {
       System.out.println("Invalid command. Please enter valid game command such as: \n"
           + "go <north, south, east, west>, help, quit");
@@ -126,47 +129,61 @@ public class Game {
   private void movePlayer(String[] command, Location currentLocation) {
     Location newLocation;
 
-    if(command[1].equals("north")){
+    if (command[1].equals("north")) {
       // if null keep location, if not change location
-       newLocation = currentLocation.getNorth().isEmpty() ? currentLocation : gameMap.get(currentLocation.getNorth());
+      newLocation = currentLocation.getNorth().isEmpty() ? currentLocation
+          : gameMap.get(currentLocation.getNorth());
 
-    }else if(command[1].equals("south")){
-      newLocation = currentLocation.getSouth().isEmpty() ? currentLocation : gameMap.get(currentLocation.getSouth());
+    } else if (command[1].equals("south")) {
+      newLocation = currentLocation.getSouth().isEmpty() ? currentLocation
+          : gameMap.get(currentLocation.getSouth());
 
-    }else if(command[1].equals("west")){
-      newLocation = currentLocation.getWest().isEmpty() ? currentLocation : gameMap.get(currentLocation.getWest());
+    } else if (command[1].equals("west")) {
+      newLocation = currentLocation.getWest().isEmpty() ? currentLocation
+          : gameMap.get(currentLocation.getWest());
 
-    }else if(command[1].equals("east")){
-      newLocation = currentLocation.getEast().isEmpty() ? currentLocation : gameMap.get(currentLocation.getEast());
-    } else{
+    } else if (command[1].equals("east")) {
+      newLocation = currentLocation.getEast().isEmpty() ? currentLocation
+          : gameMap.get(currentLocation.getEast());
+    } else {
       newLocation = currentLocation;
       System.out.println("not a valid direction, try another!");
     }
     player.setLocation(newLocation.getLocationName());
   }
+
   // This handles how the user manipulates the inventory from picking up items to using items.
-  public void addToInventory(){
+  public void addToInventory() {
 
     String item = gameMap.get(player.getLocation()).getItems();
 
-    if (!item.isEmpty() && !newItem.contains(item)){
+    if (!item.isEmpty() && !newItem.contains(item)) {
       newItem.add(item);
       player.setInventory(newItem);
       // reverse so that newest item added is printed to user
       Collections.reverse(newItem);
       System.out.println(newItem.get(0) + " has been added to your inventory \n");
-    }else{
+    } else {
       System.out.println("There is nothing to get \n");
+    }
+  }
+
+  private void talkToNpc() {
+    Location currentLocation = gameMap.get(player.getLocation());
+    if (currentLocation.getNpc().isEmpty()) {
+      System.out.println("There is no one to talk to.\n");
+    } else {
+      System.out.println(currentLocation.getNpc() + "says: " + currentLocation.getNpcQuote());
     }
   }
 
   // This handles the information about the players current health
 
-  public void statusUpdate(){
+  public void statusUpdate() {
     Location currentLocation = gameMap.get(player.getLocation());
     int pHp = player.getHealth();
     System.out.println("You are currently at: " + currentLocation.getLocationName() + "\n");
-    System.out.println(currentLocation.getDescription());
+    System.out.println(currentLocation.getDescription() + "\n");
     showNPC();
     showPossibleDirections();
     System.out.println("\n" + player.getName() + " your current health is = " + pHp + "\n");
@@ -175,64 +192,65 @@ public class Game {
   }
 
   // this prints the players current inventory
-  public void showInventory(){
-    if (player.getInventory() == null){
+  public void showInventory() {
+    if (player.getInventory() == null) {
       System.out.println("your inventory is empty \n");
-    } else{
+    } else {
       System.out.println("Your inventory currently has: " + player.getInventory());
     }
   }
 
   // this shows the items in the zone, not the inventory.
-  public void showItems(){
+  public void showItems() {
     String item = gameMap.get(player.getLocation()).getItems();
 
-    if (!item.isEmpty() && !newItem.contains(item)){
+    if (!item.isEmpty() && !newItem.contains(item)) {
       System.out.println("You see: " + item);
-    }else{
+    } else {
       System.out.println("You see no items in this area. \n");
     }
   }
 
-public void showNPC() {
-  Location currentLocation = gameMap.get(player.getLocation());
+  public void showNPC() {
+    Location currentLocation = gameMap.get(player.getLocation());
 
-  if (!currentLocation.getNpc().isEmpty()) {
-    System.out.println("NPC: " + currentLocation.getNpc() + "\n");
-  }else{
-    System.out.println("NPC: No characters at this location. \n");
+    if (!currentLocation.getNpc().isEmpty()) {
+      System.out.println("NPC: " + currentLocation.getNpc() + "\n");
+    } else {
+      System.out.println("NPC: No characters at this location. \n");
+    }
   }
-}
 
   // This displays the directions that the player has currently available to them.
-  public void showPossibleDirections(){
+  public void showPossibleDirections() {
 
     Location currentLocation = gameMap.get(player.getLocation());
-    if(currentLocation.getNorth().isEmpty()){
+    if (currentLocation.getNorth().isEmpty()) {
       System.out.println("North: Nothing this way");
-    } else{
+    } else {
       System.out.println("North: " + currentLocation.getNorth());
     }
 
-    if(currentLocation.getSouth().isEmpty()){
+    if (currentLocation.getSouth().isEmpty()) {
       System.out.println("South: Nothing this way");
-    } else{
+    } else {
       System.out.println("South: " + currentLocation.getSouth());
     }
 
-    if(currentLocation.getWest().isEmpty()){
+    if (currentLocation.getWest().isEmpty()) {
       System.out.println("West:  Nothing this way");
-    } else{
+    } else {
       System.out.println("West: " + currentLocation.getWest());
     }
 
-    if(currentLocation.getEast().isEmpty()){
+    if (currentLocation.getEast().isEmpty()) {
       System.out.println("East:  Nothing this way");
-    } else{
+    } else {
       System.out.println("East: " + currentLocation.getEast());
     }
 
   }
+
   public State getState() {
     return state;
   }
