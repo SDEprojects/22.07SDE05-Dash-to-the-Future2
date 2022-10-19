@@ -167,12 +167,12 @@ public class Game {
     int pHp = player.getHealth();
     System.out.println("You are currently at: " + currentLocation.getLocationName() + "\n");
     System.out.println(currentLocation.getDescription());
+    showNPC();
     showPossibleDirections();
     System.out.println("\n" + player.getName() + " your current health is = " + pHp + "\n");
     showItems();
     showInventory();
   }
-
 
   // this prints the players current inventory
   public void showInventory(){
@@ -194,6 +194,15 @@ public class Game {
     }
   }
 
+public void showNPC() {
+  Location currentLocation = gameMap.get(player.getLocation());
+
+  if (!currentLocation.getNpc().isEmpty()) {
+    System.out.println("NPC: " + currentLocation.getNpc() + "\n");
+  }else{
+    System.out.println("NPC: No characters at this location. \n");
+  }
+}
 
   // This displays the directions that the player has currently available to them.
   public void showPossibleDirections(){

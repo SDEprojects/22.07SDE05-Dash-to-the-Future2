@@ -13,13 +13,15 @@ public class Location {
   private String south;
   private String east;
   private String west;
+  private String npc;
 
   private String description;
 
-  public Location(String locationName, String items, String north, String south, String east,
+  public Location(String locationName, String items, String npc, String north, String south, String east,
       String west, String description) {
     this.locationName = locationName;
     this.items = items;
+    this.npc = npc;
     this.north = north;
     this.south = south;
     this.east = east;
@@ -44,6 +46,14 @@ public class Location {
 
   public void setItems(String items) {
     this.items = items;
+  }
+
+  public String getNpc() {
+    return npc;
+  }
+
+  public void setNpc(String npc) {
+    this.npc = npc;
   }
 
   public String getNorth() {
