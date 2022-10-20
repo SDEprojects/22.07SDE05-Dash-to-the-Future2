@@ -108,11 +108,8 @@ public class Game {
     } else if (command[0].equals("go")) {
       Location currentLocation = gameMap.get(player.getLocation());
       movePlayer(command, currentLocation);
-      if (command[1].equals("north") && currentLocation.getNorth().isEmpty()
-      || command[1].equals("south") && currentLocation.getSouth().isEmpty()
-      || command[1].equals("east") && currentLocation.getEast().isEmpty()
-      || command[1].equals("west") && currentLocation.getWest().isEmpty()) {
-        System.out.println("\nYou can't go this way, there is nothing there.\n");
+      if (currentLocation.equals(player.getLocation())) {
+        System.out.println("You can't go this way, there is nothing there.");
       }
     } else if (command[0].equals("new") && command[1].equals("game")) {
       startGame();
@@ -187,7 +184,7 @@ public class Game {
     Location currentLocation = gameMap.get(player.getLocation());
     int pHp = player.getHealth();
     System.out.println("You are currently at: " + currentLocation.getLocationName() + "\n");
-    System.out.println(currentLocation.getDescription());
+    System.out.println(currentLocation.getDescription() + "\n");
     showNPC();
     showPossibleDirections();
     System.out.println("\n" + player.getName() + " your current health is = " + pHp + "\n");
