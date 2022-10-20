@@ -3,6 +3,7 @@ package com.bdj.dash.controller;
 import com.bdj.dash.model.Location;
 import com.bdj.dash.model.Player;
 import com.bdj.dash.model.State;
+import com.bdj.dash.model.Zombie;
 import com.bdj.dash.view.Intro;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
@@ -11,8 +12,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Map;
 import java.util.Scanner;
-import com.bdj.dash.model.Reader;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 // moved methods into game so that we are able to manipulate the player object without having
@@ -28,10 +27,17 @@ public class Game {
   Intro titleArt = new Intro();
   Player player = new Player();
 
-  Reader reader = new Reader();
+  Zombie zombie1 = new Zombie();
+  Zombie zombie2 = new Zombie();
+  Zombie zombie3 = new Zombie();
+  Zombie zombie4 = new Zombie();
+  Zombie bossZombie = new Zombie();
+
   State state;
+
   Map<String, Location> gameMap;
   ArrayList<String> newItem = new ArrayList<>();
+
 
   public void playGame() {
     titleArt.title();
@@ -43,7 +49,6 @@ public class Game {
       inputCommand();
       winOrLose();
     }
-
 
   }
 
@@ -58,6 +63,12 @@ public class Game {
       playerName();
       createMap();
       player.setLocation(gameMap.get("abandoned house").getLocationName());
+      zombie1.setLocation(gameMap.get("grocery store").getLocationName());
+      zombie2.setLocation(gameMap.get("zombie motel caves").getLocationName());
+      zombie3.setLocation(gameMap.get("radioactive club").getLocationName());
+      zombie4.setLocation(gameMap.get("radioactive club").getLocationName());
+      bossZombie.setLocation(gameMap.get("boss room").getLocationName());
+
       System.out.println("The game has begun!\n");
     } else if (command.equals("n")) {
       System.out.println("Maybe next time!");
@@ -68,11 +79,11 @@ public class Game {
     }
   }
 
+  // This allows the user to create their own player name.
   private void playerName() {
     String userName = player.playerName();
     if (userName.equals("quit")) {
       System.out.println("I guess you didn't want to play.");
-      return;
     }
   }
 
@@ -99,6 +110,7 @@ public class Game {
     processCommand(command);
   }
 
+  // This handles what happens if the user types in any commands.
   public void processCommand(String commandString) {
     String[] command = commandString.split(" ");
     if (command[0].equals("help")) {
@@ -173,6 +185,7 @@ public class Game {
     }
   }
 
+// This handles the user trying to talk to NPC
   private void talkToNpc() {
     Location currentLocation = gameMap.get(player.getLocation());
     if (currentLocation.getNpc().isEmpty()) {
@@ -182,6 +195,7 @@ public class Game {
     }
   }
 
+  // Controls situations where the player can win or lose the game.
   public void winOrLose(){
     Location currentLocation = gameMap.get(player.getLocation());
     if (currentLocation.getLocationName().equals("safe haven")){
@@ -190,7 +204,7 @@ public class Game {
     } else if (currentLocation.getLocationName().equals("safe haven") && newItem.contains("portal note")) {
       System.out.println("You are a kind man! You saved everyone, thank you for being you!");
       setState(State.WIN);
-    }else if(player.getHealth() <  0 ){
+    }else if(player.getHealth() <  1 ){
       System.out.println("Better luck next time! You DIED!");
       setState(State.LOSE);
     } else if (currentLocation.getLocationName().equals("not deadly depths")) {
@@ -201,11 +215,13 @@ public class Game {
       setState(State.LOSE);
     }
   }
-  // This handles the information about the players current health
+  // This handles the information about the player's current location, health, items, and inventory
+  // This displays the direction that the player can go in current location, and checks for zombies.
 
   public void statusUpdate() {
     Location currentLocation = gameMap.get(player.getLocation());
     int pHp = player.getHealth();
+    showZombies();
     System.out.println("You are currently at: " + currentLocation.getLocationName() + "\n");
     System.out.println(currentLocation.getDescription());
     showNPC();
@@ -215,7 +231,7 @@ public class Game {
     showInventory();
   }
 
-  // this prints the players current inventory
+  // This prints the players current inventory
   public void showInventory() {
     if (player.getInventory() == null) {
       System.out.println("your inventory is empty \n");
@@ -234,7 +250,7 @@ public class Game {
       System.out.println("You see no items in this area. \n");
     }
   }
-
+  // Check to see if there is a NPC in the current zone
   public void showNPC() {
     Location currentLocation = gameMap.get(player.getLocation());
 
@@ -242,6 +258,20 @@ public class Game {
       System.out.println("NPC: " + currentLocation.getNpc() + "\n");
     } else {
       System.out.println("NPC: No characters at this location. \n");
+    }
+  }
+
+  // Check to see if there is a zombie in the current zone
+  public void showZombies() {
+    Location currentLocation = gameMap.get(player.getLocation());
+    if (zombie1.getLocation().equals(currentLocation.getLocationName())
+        || (zombie2.getLocation().equals(currentLocation.getLocationName()))) {
+      System.out.println("There is a zombie nearby! Defend yourself or cry... I mean die!\n");
+    } else if (zombie3.getLocation().equals(currentLocation.getLocationName())) {
+      System.out.println("There are two zombies in this room... This is not looking good for you.\n");
+    } else if (bossZombie.getLocation().equals(currentLocation.getLocationName())) {
+      System.out.println("This is a baby zombie? What harm could it do? \n"
+          + "You better have more than one weapon to be safe!\n");
     }
   }
 
