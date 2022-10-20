@@ -41,6 +41,7 @@ public class Game {
     while (!state.isTerminal()) {
       statusUpdate();
       inputCommand();
+      winOrLose();
     }
 
 
@@ -181,6 +182,25 @@ public class Game {
     }
   }
 
+  public void winOrLose(){
+    Location currentLocation = gameMap.get(player.getLocation());
+    if (currentLocation.getLocationName().equals("safe haven")){
+      System.out.println("You are now Safe! Congratulations, this is your new life.");
+      setState(State.WIN);
+    } else if (currentLocation.getLocationName().equals("safe haven") && newItem.contains("portal note")) {
+      System.out.println("You are a kind man! You saved everyone, thank you for being you!");
+      setState(State.WIN);
+    }else if(player.getHealth() <  0 ){
+      System.out.println("Better luck next time! You DIED!");
+      setState(State.LOSE);
+    } else if (currentLocation.getLocationName().equals("not deadly depths")) {
+      System.out.println("You took a wrong turn, and have died! You DIED!");
+      setState(State.LOSE);
+    } else if (currentLocation.getLocationName().equals("toxic river") && !newItem.contains("raft")) {
+      System.out.println("You forgot the raft! The river was too toxic and so was your thinking. You DIED!");
+      setState(State.LOSE);
+    }
+  }
   // This handles the information about the players current health
 
   public void statusUpdate() {
