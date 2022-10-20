@@ -26,6 +26,7 @@ public class Game {
 
   Intro titleArt = new Intro();
   Player player = new Player();
+  int playerHealth = player.getHealth();
 
   Zombie zombie1 = new Zombie();
   Zombie zombie2 = new Zombie();
@@ -134,7 +135,10 @@ public class Game {
     } else if (command[0].equals("talk")) {
       System.out.println();
       talkToNpc();
-    } else {
+    } else if (command[0].equals("heal")) {
+      heal();
+    }
+    else {
       System.out.println("Invalid command. Please enter valid game command such as: \n"
           + "go <north, south, east, west>, help, quit");
     }
@@ -195,6 +199,14 @@ public class Game {
     }
   }
 
+  private void heal() {
+    if (player.getHealth() <= 50 && newItem.contains("duct tape")) {
+      playerHealth += 50;
+    } else {
+      System.out.println("Healing unnecessary!\n");
+    }
+  }
+
   // Controls situations where the player can win or lose the game.
   public void winOrLose(){
     Location currentLocation = gameMap.get(player.getLocation());
@@ -220,13 +232,12 @@ public class Game {
 
   public void statusUpdate() {
     Location currentLocation = gameMap.get(player.getLocation());
-    int pHp = player.getHealth();
     showZombies();
     System.out.println("You are currently at: " + currentLocation.getLocationName() + "\n");
     System.out.println(currentLocation.getDescription());
     showNPC();
     showPossibleDirections();
-    System.out.println("\n" + player.getName() + " your current health is = " + pHp + "\n");
+    System.out.println("\n" + player.getName() + ", your current health is = " + playerHealth + "\n");
     showItems();
     showInventory();
   }
