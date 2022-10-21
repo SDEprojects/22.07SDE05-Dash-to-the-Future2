@@ -1,6 +1,7 @@
 package com.bdj.dash.controller;
 
 import com.bdj.dash.model.Location;
+import com.bdj.dash.model.Music;
 import com.bdj.dash.model.Player;
 import com.bdj.dash.model.State;
 import com.bdj.dash.model.Zombie;
@@ -40,6 +41,9 @@ public class Game {
   Map<String, Location> gameMap;
   ArrayList<String> newItem = new ArrayList<>();
 
+  // File path for playing music
+  String filepath = "./src/main/resources/BGM.wav";
+  Music musicObject = new Music();
 
   public void playGame() {
     titleArt.title();
@@ -62,6 +66,7 @@ public class Game {
     String command = input.nextLine().toLowerCase().trim();
     if (command.equals("y")) {
       setState(State.PLAY);
+      musicObject.playMusic(filepath);
       playerName();
       createMap();
       player.setLocation(gameMap.get("abandoned house").getLocationName());
