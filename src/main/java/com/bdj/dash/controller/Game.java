@@ -4,6 +4,7 @@ import com.bdj.dash.model.Location;
 import com.bdj.dash.model.Player;
 import com.bdj.dash.model.State;
 import com.bdj.dash.model.Zombie;
+import com.bdj.dash.view.ConsoleColors;
 import com.bdj.dash.view.Intro;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
@@ -57,7 +58,7 @@ public class Game {
 
   public void startGame() {
     Scanner input = new Scanner(System.in);
-    System.out.println("Would you like to begin the game? y/n");
+    System.out.println(ConsoleColors.CYAN + "Would you like to begin the game? y/n" + ConsoleColors.RESET);
     String command = input.nextLine().toLowerCase().trim();
     if (command.equals("y")) {
       setState(State.PLAY);
@@ -70,12 +71,12 @@ public class Game {
       zombie4.setLocation(gameMap.get("radioactive club").getLocationName());
       bossZombie.setLocation(gameMap.get("boss room").getLocationName());
 
-      System.out.println("The game has begun!\n");
+      System.out.println(ConsoleColors.GREEN + "The game has begun!\n" + ConsoleColors.RESET);
     } else if (command.equals("n")) {
-      System.out.println("Maybe next time!");
+      System.out.println(ConsoleColors.RED + "Maybe next time!" + ConsoleColors.RESET);
       setState(State.LOSE);
     } else {
-      System.out.println("Invalid command. Please enter y/n");
+      System.out.println(ConsoleColors.BRIGHT_YELLOW + "Invalid command. Please enter y/n" + ConsoleColors.RESET);
       startGame();
     }
   }
@@ -84,7 +85,7 @@ public class Game {
   private void playerName() {
     String userName = player.playerName();
     if (userName.equals("quit")) {
-      System.out.println("I guess you didn't want to play.");
+      System.out.println(ConsoleColors.BLUE + "I guess you didn't want to play." + ConsoleColors.RESET);
     }
   }
 
@@ -106,7 +107,7 @@ public class Game {
   // This allows users to type commands.
   public void inputCommand() {
     Scanner input = new Scanner(System.in);
-    System.out.println("enterCommand: ");
+    System.out.println(ConsoleColors.RED + "Enter Command: " + ConsoleColors.RESET);
     String command = input.nextLine().toLowerCase().trim();
     processCommand(command);
   }
@@ -117,7 +118,7 @@ public class Game {
     if (command[0].equals("help")) {
       System.out.println(Intro.HELP_COMMANDS);
     } else if (command[0].equals("quit")) {
-      System.out.println("See you next time");
+      System.out.println(ConsoleColors.CYAN + "See you next time" + ConsoleColors.RESET);
       setState(State.LOSE);
     } else if (command[0].equals("go")) {
       Location currentLocation = gameMap.get(player.getLocation());
@@ -126,7 +127,7 @@ public class Game {
       || command[1].equals("south") && currentLocation.getSouth().isEmpty()
       || command[1].equals("east") && currentLocation.getEast().isEmpty()
       || command[1].equals("west") && currentLocation.getWest().isEmpty()) {
-        System.out.println("\nYou can't go this way, there is nothing there.\n");
+        System.out.println(ConsoleColors.BRIGHT_RED + ConsoleColors.BOLD + "\nYou can't go this way, there is nothing there.\n" + ConsoleColors.RESET);
       }
     } else if (command[0].equals("new") && command[1].equals("game")) {
       startGame();
@@ -139,7 +140,7 @@ public class Game {
       heal();
     }
     else {
-      System.out.println("Invalid command. Please enter valid game command such as: \n"
+      System.out.println(ConsoleColors.BRIGHT_RED + "Invalid command. Please enter valid game command such as: \n" + ConsoleColors.RESET
           + "go <north, south, east, west>, help, quit");
     }
 
@@ -168,7 +169,7 @@ public class Game {
           : gameMap.get(currentLocation.getEast());
     } else {
       newLocation = currentLocation;
-      System.out.println("not a valid direction, try another!");
+      System.out.println(ConsoleColors.YELLOW + "Not a valid direction, try another!" + ConsoleColors.RESET);
     }
     player.setLocation(newLocation.getLocationName());
   }
@@ -183,9 +184,9 @@ public class Game {
       player.setInventory(newItem);
       // reverse so that newest item added is printed to user
       Collections.reverse(newItem);
-      System.out.println(newItem.get(0) + " has been added to your inventory \n");
+      System.out.println(ConsoleColors.PURPLE + newItem.get(0) + ConsoleColors.RESET + " has been added to your inventory \n");
     } else {
-      System.out.println("There is nothing to get \n");
+      System.out.println(ConsoleColors.RED + "There is nothing to get \n" + ConsoleColors.RESET);
     }
   }
 
@@ -193,9 +194,9 @@ public class Game {
   private void talkToNpc() {
     Location currentLocation = gameMap.get(player.getLocation());
     if (currentLocation.getNpc().isEmpty()) {
-      System.out.println("There is no one to talk to.\n");
+      System.out.println(ConsoleColors.BLUE + "There is no one to talk to.\n" + ConsoleColors.RESET);
     } else {
-      System.out.println(currentLocation.getNpc() + " says: " + currentLocation.getNpcQuote());
+      System.out.println(ConsoleColors.BLUE + currentLocation.getNpc()  + " says: " + ConsoleColors.RESET + currentLocation.getNpcQuote());
     }
   }
 
@@ -203,7 +204,7 @@ public class Game {
     if (player.getHealth() <= 50 && newItem.contains("duct tape")) {
       playerHealth += 50;
     } else {
-      System.out.println("Healing unnecessary!\n");
+      System.out.println(ConsoleColors.YELLOW + "Healing unnecessary!\n" + ConsoleColors.RESET);
     }
   }
 
@@ -211,19 +212,19 @@ public class Game {
   public void winOrLose(){
     Location currentLocation = gameMap.get(player.getLocation());
     if (currentLocation.getLocationName().equals("safe haven")){
-      System.out.println("You are now Safe! Congratulations, this is your new life.");
+      System.out.println(ConsoleColors.BRIGHT_GREEN + "You are now Safe! Congratulations, this is your new life." + ConsoleColors.RESET);
       setState(State.WIN);
     } else if (currentLocation.getLocationName().equals("safe haven") && newItem.contains("portal note")) {
-      System.out.println("You are a kind man! You saved everyone, thank you for being you!");
+      System.out.println(ConsoleColors.BRIGHT_GREEN + "You are a kind man! You saved everyone, thank you for being you!" + ConsoleColors.RESET);
       setState(State.WIN);
     }else if(player.getHealth() <  1 ){
-      System.out.println("Better luck next time! You DIED!");
+      System.out.println(ConsoleColors.BRIGHT_RED + "Better luck next time! You DIED!" + ConsoleColors.RESET);
       setState(State.LOSE);
     } else if (currentLocation.getLocationName().equals("not deadly depths")) {
-      System.out.println("You took a wrong turn, and have died! You DIED!");
+      System.out.println(ConsoleColors.BRIGHT_RED + "You took a wrong turn! You DIED!" + ConsoleColors.RESET);
       setState(State.LOSE);
     } else if (currentLocation.getLocationName().equals("toxic river") && !newItem.contains("raft")) {
-      System.out.println("You forgot the raft! The river was too toxic and so was your thinking. You DIED!");
+      System.out.println(ConsoleColors.BRIGHT_RED + "You forgot the raft! The river was too toxic and so was your thinking. You DIED!" + ConsoleColors.RESET);
       setState(State.LOSE);
     }
   }
@@ -233,11 +234,11 @@ public class Game {
   public void statusUpdate() {
     Location currentLocation = gameMap.get(player.getLocation());
     showZombies();
-    System.out.println("You are currently at: " + currentLocation.getLocationName() + "\n");
+    System.out.println("You are currently at: " + ConsoleColors.PURPLE + ConsoleColors.BOLD + currentLocation.getLocationName() + "\n" + ConsoleColors.RESET);
     System.out.println(currentLocation.getDescription());
     showNPC();
     showPossibleDirections();
-    System.out.println("\n" + player.getName() + ", your current health is = " + playerHealth + "\n");
+    System.out.println("\n" + player.getName() + ", your current health is = " + ConsoleColors.BRIGHT_RED + playerHealth + "\n" + ConsoleColors.RESET);
     showItems();
     showInventory();
   }
@@ -247,7 +248,7 @@ public class Game {
     if (player.getInventory() == null) {
       System.out.println("your inventory is empty \n");
     } else {
-      System.out.println("Your inventory currently has: " + player.getInventory());
+      System.out.println("Your inventory currently has: " + ConsoleColors.BRIGHT_BLUE + player.getInventory() + ConsoleColors.RESET);
     }
   }
 
@@ -256,9 +257,9 @@ public class Game {
     String item = gameMap.get(player.getLocation()).getItems();
 
     if (!item.isEmpty() && !newItem.contains(item)) {
-      System.out.println("You see: " + item);
+      System.out.println("You see: " + ConsoleColors.BRIGHT_CYAN + item + ConsoleColors.RESET);
     } else {
-      System.out.println("You see no items in this area. \n");
+      System.out.println(ConsoleColors.BRIGHT_CYAN + "You see no items in this area. \n" + ConsoleColors.RESET);
     }
   }
   // Check to see if there is a NPC in the current zone
@@ -266,9 +267,9 @@ public class Game {
     Location currentLocation = gameMap.get(player.getLocation());
 
     if (!currentLocation.getNpc().isEmpty()) {
-      System.out.println("NPC: " + currentLocation.getNpc() + "\n");
+      System.out.println(ConsoleColors.BLUE + "NPC: " + currentLocation.getNpc() + "\n" + ConsoleColors.RESET);
     } else {
-      System.out.println("NPC: No characters at this location. \n");
+      System.out.println(ConsoleColors.BLUE + "NPC: No characters at this location. \n" + ConsoleColors.RESET);
     }
   }
 
@@ -277,12 +278,12 @@ public class Game {
     Location currentLocation = gameMap.get(player.getLocation());
     if (zombie1.getLocation().equals(currentLocation.getLocationName())
         || (zombie2.getLocation().equals(currentLocation.getLocationName()))) {
-      System.out.println("There is a zombie nearby! Defend yourself or cry... I mean die!\n");
+      System.out.println(ConsoleColors.BRIGHT_YELLOW + "There is a zombie nearby! Defend yourself or cry... I mean die!\n" + ConsoleColors.RESET);
     } else if (zombie3.getLocation().equals(currentLocation.getLocationName())) {
-      System.out.println("There are two zombies in this room... This is not looking good for you.\n");
+      System.out.println(ConsoleColors.BRIGHT_YELLOW + "There are two zombies in this room... This is not looking good for you.\n" + ConsoleColors.RESET);
     } else if (bossZombie.getLocation().equals(currentLocation.getLocationName())) {
-      System.out.println("This is a baby zombie? What harm could it do? \n"
-          + "You better have more than one weapon to be safe!\n");
+      System.out.println(ConsoleColors.BRIGHT_YELLOW + "This is a baby zombie? What harm could it do? \n"
+          + "You better have more than one weapon to be safe!\n" + ConsoleColors.RESET);
     }
   }
 
@@ -293,25 +294,25 @@ public class Game {
     if (currentLocation.getNorth().isEmpty()) {
       System.out.println("North: Nothing this way");
     } else {
-      System.out.println("North: " + currentLocation.getNorth());
+      System.out.println("North: " + ConsoleColors.BRIGHT_CYAN + currentLocation.getNorth() + ConsoleColors.RESET);
     }
 
     if (currentLocation.getSouth().isEmpty()) {
       System.out.println("South: Nothing this way");
     } else {
-      System.out.println("South: " + currentLocation.getSouth());
+      System.out.println("South: " + ConsoleColors.BRIGHT_CYAN + currentLocation.getSouth() + ConsoleColors.RESET);
     }
 
     if (currentLocation.getWest().isEmpty()) {
       System.out.println("West:  Nothing this way");
     } else {
-      System.out.println("West: " + currentLocation.getWest());
+      System.out.println("West: " + ConsoleColors.BRIGHT_CYAN + currentLocation.getWest() + ConsoleColors.RESET);
     }
 
     if (currentLocation.getEast().isEmpty()) {
       System.out.println("East:  Nothing this way");
     } else {
-      System.out.println("East: " + currentLocation.getEast());
+      System.out.println("East: " + ConsoleColors.BRIGHT_CYAN + currentLocation.getEast() + ConsoleColors.RESET);
     }
 
   }
