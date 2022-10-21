@@ -15,6 +15,9 @@ import java.util.Collections;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.stream.Collectors;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 
 // moved methods into game so that we are able to manipulate the player object without having
 // all the other classes talk to each other
@@ -139,16 +142,18 @@ public class Game {
     } else if (command[0].equals("get")) {
       addToInventory();
     } else if (command[0].equals("talk")) {
-      System.out.println();
       talkToNpc();
     } else if (command[0].equals("heal")) {
       heal();
-    }
-    else {
+    } else if (command[0].equals("music-on")) {
+      System.out.println("Starting the music");
+    } else if (command[0].equals("music-off")) {
+      System.out.println("Turing off the music");
+      musicObject.stopMusic(filepath);
+    } else {
       System.out.println(ConsoleColors.BRIGHT_RED + "Invalid command. Please enter valid game command such as: \n" + ConsoleColors.RESET
           + "go <north, south, east, west>, help, quit");
     }
-
   }
 
   // this handles how the user moves around the world and keeps track of the player.

@@ -11,7 +11,7 @@ public class Music {
   public void playMusic(String musicLocation) {
 
     // Ensure that the music path exists before trying to play to prevent an error.
-    try {
+     try {
       File musicPath = new File(musicLocation);
       if (musicPath.exists()) {
         AudioInputStream audioInput = AudioSystem.getAudioInputStream(musicPath);
@@ -20,13 +20,11 @@ public class Music {
         clip.start();
         clip.loop(Clip.LOOP_CONTINUOUSLY);
 
-        // Save the current position of the song
+        // Pause music at exact location
         long clipTimePosition = clip.getMicrosecondPosition();
-
-        // Stop the audio
         clip.stop();
 
-        // Resume Music
+        // Start playing music again from location
         clip.setMicrosecondPosition(clipTimePosition);
         clip.start();
 
@@ -38,4 +36,27 @@ public class Music {
       ex.printStackTrace();
     }
   }
+
+  public void stopMusic(String musicLoc) {
+  // Ensure that the music path exists before trying to play to prevent an error.
+     try {
+    File musicPath = new File(musicLoc);
+      AudioInputStream audioInput = AudioSystem.getAudioInputStream(musicPath);
+      Clip clip = AudioSystem.getClip();
+//      clip.open(audioInput);
+
+      // Pause music at exact location
+
+      clip.stop();
+
+      // Start playing music again from location
+//      clip.setMicrosecondPosition(clipTimePosition);
+//      clip.start();
+  }
+    catch (Exception ex) {
+    ex.printStackTrace();
+  }
+}
+
+
 }
