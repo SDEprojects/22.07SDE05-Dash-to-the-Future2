@@ -5,6 +5,7 @@ public class Zombie {
 
   // This handles information about the zombies from health to name and location.
   int health = 50;
+  int damage = 50;
   String location;
 
   public String getLocation() {
@@ -19,4 +20,11 @@ public class Zombie {
     return health;
   }
 
+  public int getDamage() {
+    return damage;
+  }
+
+  public void setDamage(int damage) {
+    this.damage = damage;
+  }
 }

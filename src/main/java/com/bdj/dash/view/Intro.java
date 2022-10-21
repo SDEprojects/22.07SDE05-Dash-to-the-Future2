@@ -16,8 +16,8 @@ public class Intro {
           + " go east \n   -This moves the player in the specified direction you may also"
           + " try north, south, or west \n\n get\n   -This allows the user to pick up any"
           + " item that may be in the zone \n\n quit \n -this allows the user to quit playing the"
-          + " game \n\n new game \n   -This allows the user to start the game over. \n +"
-          + " talk \n   -This allows you to talk to npc in the area if one is in this zone. NPC may give assistance\n +"
+          + " game \n\n new game \n   -This allows the user to start the game over. \n"
+          + " talk \n   -This allows you to talk to npc in the area if one is in this zone. NPC may give assistance\n"
           + " heal \n   -This allows you to restore 50 health if you have the healing item.";
 
 //
@@ -47,13 +47,16 @@ public class Intro {
     }
   }
 
-  public void instructions(){
+  public void gameDescription(){
     System.out.println( ConsoleColors.BRIGHT_YELLOW +
         "\n This is a text-based RPG game that features a Door Dasher that wanders around \n"
-            + " in an apocalyptic future. The character can talk to NPC, pick up items, \n"
-            + " and attack zombies. The objective of the game is to either find a way back \n"
-            + " to the past or at least find a safe haven. Type help at any time to see a list "
-            + "of usable commands\n " + ConsoleColors.RESET);
+        + " in an apocalyptic future. The character can talk to NPC, pick up items, \n"
+        + " and attack zombies. The objective of the game is to either find a way back \n"
+        + " to the past or at least find a safe haven. Type help at any time to see a list "
+        + "of usable commands\n " + ConsoleColors.RESET);
+  }
+
+  public void instructions(){
 
     System.out.println(HELP_COMMANDS);
   }
