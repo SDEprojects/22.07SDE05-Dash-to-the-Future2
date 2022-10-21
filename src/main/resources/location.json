@@ -23,8 +23,8 @@
   },
   {
     "name": "grocery store",
-    "description": "The food here doesn't look edible.\n",
-    "items": "",
+    "description": "The food here doesn't look edible.\n But that one banana may prove helpful at some point, fuel up for your journey!\n",
+    "items": "banana",
     "npc" : "",
     "npcQuote": "",
     "north": "abandoned fairgrounds",
@@ -35,7 +35,7 @@
   {
     "name": "abandoned fairgrounds",
     "description": "This place probably used to be up and popping.\n",
-    "items": "spiked bat",
+    "items": "spiked-bat",
     "npc" : "",
     "npcQuote": "",
     "north": "street pharmaceutical",
@@ -167,6 +167,17 @@
   {
     "name": "safe haven",
     "description": "Congratulations! You have successfully overcome all the obstacles and reached Safe Haven. \nYou can now have all the happiness you ever imagined.\n",
+    "items": "",
+    "npc" : "",
+    "npcQuote": "",
+    "north": "",
+    "south": "",
+    "east": "",
+    "west": ""
+  },
+  {
+    "name": "zombie dump",
+    "description": "",
     "items": "",
     "npc" : "",
     "npcQuote": "",
