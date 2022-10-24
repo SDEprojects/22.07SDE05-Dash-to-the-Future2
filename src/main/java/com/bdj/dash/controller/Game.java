@@ -157,13 +157,9 @@ public class Game {
     } else if (command[0].equals("eat")) {
       if (zombieInArea()){
         System.out.println("You must kill the zombie");
+        showZombies();
       } else {
-      if (newItem.contains("banana")){
-        player.setHealth(playerHealth + 25);
-        System.out.println("Way to fuel up, Smart!");
-      } else {
-        System.out.println("You have nothing to eat");
-      }
+        eat();
       }
     } else if (command.length == 1) {
       System.out.println(ConsoleColors.BRIGHT_RED + ConsoleColors.BOLD + "invalid input, please try again!" + ConsoleColors.RESET);
@@ -231,6 +227,7 @@ public class Game {
       System.out.println("Good, you killed the zombies!");
     } else if(command[1] == null){
       System.out.println("please enter a item");
+      showZombies();
     } else {
       System.out.println("please enter a valid item!");
       showZombies();
@@ -293,13 +290,25 @@ public class Game {
     }
   }
 
+  private void eat(){
+    String item = gameMap.get(player.getLocation()).getItems();
+    int playerHealth = player.getHealth();
+    if (newItem.contains("banana")){
+      player.setHealth(playerHealth + 25);
+      newItem.remove("banana");
+      item.replace("banana", "");
+      System.out.println("Way to fuel up, Smart!");
+    } else {
+      System.out.println("You have nothing to eat");
+    }
+  }
   private void heal() {
     int playerHealth = player.getHealth();
     if (player.getHealth() < 76 && newItem.contains("duct tape")) {
-      player.setHealth(playerHealth + 50);
+      player.setHealth(playerHealth + 75);
       newItem.remove("duct tape");
-      System.out.println("50 health has been added to your health");
-    } else if (player.getHealth() <= 50 && !newItem.contains("duct tape")) {
+      System.out.println("75 health has been added to your health");
+    } else if (!newItem.contains("duct tape")) {
       System.out.println("You need the duct tape to heal!");
     } else {
       System.out.println(ConsoleColors.YELLOW + "Healing unnecessary!\n" + ConsoleColors.RESET);
