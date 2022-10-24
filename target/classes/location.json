@@ -24,7 +24,7 @@
   {
     "name": "grocery store",
     "description": "The food here doesn't look edible.\n But that one banana may prove helpful at some point, fuel up for your journey!\n",
-    "items": "",
+    "items": "banana",
     "npc" : "",
     "npcQuote": "",
     "north": "abandoned fairgrounds",

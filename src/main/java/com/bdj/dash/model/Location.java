@@ -45,8 +45,9 @@ public class Location {
     return items;
   }
 
-  public void setItems(String items) {
+  public String setItems(String items) {
     this.items = items;
+    return items;
   }
 
   public String getNpc() {
