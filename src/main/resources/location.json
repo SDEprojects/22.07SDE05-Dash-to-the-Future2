@@ -12,10 +12,10 @@
   },
   {
     "name": "crossroads",
-    "description": "It doesn't look too safe out here. \nYou can see someone close to you, but don't know who that is.",
+    "description": "It doesn't look too safe out here. \nYou can see someone close to you, but don't know who that is.\n",
     "items": "",
     "npc" : "Road Warrior",
-    "npcQuote": "Since the apocalypse started, there is not much left in this world. \nYou have to find the safe haven to be safe. \nMake sure to pick up important items and weapons along the way in case you come across any zombies.",
+    "npcQuote": "Since the apocalypse started, there is not much left in this world. \nYou have to find the safe haven to be safe. \nMake sure to pick up important items and weapons along the way in case you come across any zombies.\n",
     "north": "",
     "south": "abandoned house",
     "east": "",
@@ -23,8 +23,8 @@
   },
   {
     "name": "grocery store",
-    "description": "The food here doesn't look edible.",
-    "items": "",
+    "description": "The food here doesn't look edible.\n But that one banana may prove helpful at some point, fuel up for your journey!\n",
+    "items": "banana",
     "npc" : "",
     "npcQuote": "",
     "north": "abandoned fairgrounds",
@@ -34,8 +34,8 @@
   },
   {
     "name": "abandoned fairgrounds",
-    "description": "This place probably used to be up and popping.",
-    "items": "spiked bat",
+    "description": "This place probably used to be up and popping.\n",
+    "items": "spiked-bat",
     "npc" : "",
     "npcQuote": "",
     "north": "street pharmaceutical",
@@ -45,7 +45,7 @@
   },
   {
     "name": "street pharmaceutical",
-    "description": "Oh look! \nYou see a man in a trench coat oh wait its just the Street Pharmaceuticals.",
+    "description": "Oh look! \nYou see a man in a trench coat oh wait its just the Street Pharmaceuticals.\n",
     "items": "duct tape",
     "npc" : "",
     "npcQuote": "",
@@ -56,7 +56,7 @@
   },
   {
     "name": "radioactive club",
-    "description": "What kind of club is this? Looks like you have encountered 2 zombies. \nYou can't kill them both. YOU DIED!",
+    "description": "What kind of club is this? \n",
     "items": "",
     "npc" : "",
     "npcQuote": "",
@@ -67,7 +67,7 @@
   },
   {
     "name": "invasion woods",
-    "description": "Oh, you found yourself in the middle of the woods. \nYou have watched way too many horror films to know what happens. \nPush through as fast as you can! Wait, what is that? \nSomeone is watching you from the trees above.",
+    "description": "Oh, you found yourself in the middle of the woods. \nYou have watched way too many horror films to know what happens. \nPush through as fast as you can! Wait, what is that? \nSomeone is watching you from the trees above.\n",
     "items": "",
     "npc" : "Blake the birdwatcher",
     "npcQuote": "The birds have told me to watch out for the deadly cliffs! \nI hear that there is a monster blocking the safe haven",
@@ -78,7 +78,7 @@
   },
   {
     "name": "rusty gun store",
-    "description": "Well, this looks like a useful place. \nLet's see if they have anything. \nYou definitely need a gun moving forward.",
+    "description": "Well, this looks like a useful place. \nLet's see if they have anything. \nYou definitely need a gun moving forward.\n",
     "items": "gun",
     "npc" : "",
     "npcQuote": "",
@@ -89,10 +89,10 @@
   },
   {
     "name": "shanty docks",
-    "description": "This is exciting. You see a bunch of rotten rafts. \nShould you use a raft to cross the toxic river?",
+    "description": "This is exciting. You see a bunch of rotten rafts. \nShould you use a raft to cross the toxic river?\n",
     "items": "raft",
     "npc" : "Apocalyptic Sailor",
-    "npcQuote": "Hey, you might need the raft to survive. Be sure not to let Jack on the raft!",
+    "npcQuote": "Hey, you might need the raft to survive. Be sure not to let Jack on the raft!\n",
     "north": "",
     "south": "rusty gun store",
     "east": "toxic river",
@@ -100,7 +100,7 @@
   },
   {
     "name": "toxic river",
-    "description": "Oh man! You must be really thirsty from the long trip. \nBut wait, this rancid water cannot be trusted. \nThink wisely before you proceed!",
+    "description": "Oh man! You must be really thirsty from the long trip. \nBut wait, this rancid water cannot be trusted. \nThink wisely before you proceed!\n",
     "items": "",
     "npc" : "",
     "npcQuote": "",
@@ -111,7 +111,7 @@
   },
   {
     "name": "zombie motel caves",
-    "description": "Who do you think you encounter here? \nDuh - zombies.",
+    "description": "Who do you think you encounter here? \nDuh - zombies.\n",
     "items": "",
     "npc" : "",
     "npcQuote": "",
@@ -122,8 +122,8 @@
   },
   {
     "name": "secret bunker",
-    "description": "Well, that looks like a safe place to hide. \nWhat is that piece of paper sticking out from beneath the rocks? \nIt is a note that reads, \n'The future of safe haven lies in your hands. Take this note to the Safe Haven to save the people and restore peace forever.'",
-    "items": "",
+    "description": "Well, that looks like a safe place to hide. \nWhat is that piece of paper sticking out from beneath the rocks? \nIt is a note that reads, \n'The future of safe haven lies in your hands. Take this note to the Safe Haven to inform them about the portal and save the people to restore peace forever.' \n Or be selfish!\n",
+    "items": "portal note",
     "npc" : "",
     "npcQuote": "",
     "north": "zombie motel caves",
@@ -133,7 +133,7 @@
   },
   {
     "name": "portal",
-    "description": "Oh look, you fled to the portal instead of saving everyone else. \nCongratulations you have gone back to the past. \nI wish you the best with door-dashing. \nBe aware of the abandoned places in the future!",
+    "description": "Oh look, you fled to the portal instead of saving everyone else. \nCongratulations you have gone back to the past. \nI wish you the best with door-dashing. \nBe aware of the abandoned places in the future!\n",
     "items": "",
     "npc" : "",
     "npcQuote": "",
@@ -155,7 +155,7 @@
   },
   {
     "name": "boss room",
-    "description": "Phew! After all that crazy adventure, you made it to the Boss Room. \nThe good thing is, you see safe haven directly to the north. \nHowever, you have to go through the Super Zombie Baby before you make it through to the other side. \nDig through your inventory to find the most destructive weapon!",
+    "description": "Phew! After all that crazy adventure, you made it to the Boss Room. \nThe good thing is, you see safe haven directly to the north. \nHowever, you have to go through the Super Zombie Baby before you make it through to the other side. \nDig through your inventory to find the most destructive weapon!\n",
     "items": "",
     "npc" : "",
     "npcQuote": "",
@@ -166,7 +166,18 @@
   },
   {
     "name": "safe haven",
-    "description": "Congratulations! You have successfully overcome all the obstacles and reached Safe Haven. \nIf only you could find a way back to the past. \nThe people appreciate your selfless help. \nYou can now have all the happiness you ever imagined.",
+    "description": "Congratulations! You have successfully overcome all the obstacles and reached Safe Haven. \nYou can now have all the happiness you ever imagined.\n",
+    "items": "",
+    "npc" : "",
+    "npcQuote": "",
+    "north": "",
+    "south": "",
+    "east": "",
+    "west": ""
+  },
+  {
+    "name": "zombie dump",
+    "description": "",
     "items": "",
     "npc" : "",
     "npcQuote": "",

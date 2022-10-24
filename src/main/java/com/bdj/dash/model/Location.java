@@ -1,7 +1,6 @@
 package com.bdj.dash.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.JsonNode;
 
 public class Location {
 
@@ -45,8 +44,9 @@ public class Location {
     return items;
   }
 
-  public void setItems(String items) {
+  public String setItems(String items) {
     this.items = items;
+    return items;
   }
 
   public String getNpc() {

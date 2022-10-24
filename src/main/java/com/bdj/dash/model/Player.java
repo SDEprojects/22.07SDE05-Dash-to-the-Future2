@@ -1,5 +1,6 @@
 package com.bdj.dash.model;
 
+import com.bdj.dash.view.ConsoleColors;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -23,9 +24,17 @@ public class Player {
 
   public String playerName() {
     Scanner userName = new Scanner(System.in);
-    System.out.println("What is your name? ");
+    System.out.println(ConsoleColors.BRIGHT_GREEN + "What is your name? " + ConsoleColors.RESET);
     name = userName.nextLine().toLowerCase().trim();
     return name;
+  }
+
+  public boolean playerHasItem(String item){
+    if (getInventory().contains(item)){
+      return true;
+    } else {
+      return false;
+    }
   }
 
   public ArrayList<String> getInventory() {
