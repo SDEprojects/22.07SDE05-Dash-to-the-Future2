@@ -29,6 +29,14 @@ public class Player {
     return name;
   }
 
+  public boolean playerHasItem(String item){
+    if (getInventory().contains(item)){
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   public ArrayList<String> getInventory() {
     return inventory;
   }

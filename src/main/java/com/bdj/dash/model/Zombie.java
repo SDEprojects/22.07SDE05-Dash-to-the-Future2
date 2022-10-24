@@ -20,6 +20,10 @@ public class Zombie {
     return health;
   }
 
+  public void setHealth(int health) {
+    this.health = health;
+  }
+
   public int getDamage() {
     return damage;
   }
