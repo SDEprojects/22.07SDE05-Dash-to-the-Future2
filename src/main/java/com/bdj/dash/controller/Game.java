@@ -139,6 +139,7 @@ public class Game {
         System.out.println("You must kill the zombie");
       } else {
         addToInventory();
+
       }
     } else if (command[0].equals("talk")) {
       if (zombieInArea()){
@@ -274,6 +275,7 @@ public class Game {
       player.setInventory(newItem);
       // reverse so that newest item added is printed to user
       Collections.reverse(newItem);
+      gameMap.get(player.getLocation()).setItems("");
       System.out.println(ConsoleColors.PURPLE + newItem.get(0) + ConsoleColors.RESET + " has been added to your inventory \n");
     } else {
       System.out.println(ConsoleColors.RED + "There is nothing to get \n" + ConsoleColors.RESET);
@@ -296,7 +298,6 @@ public class Game {
     if (newItem.contains("banana")){
       player.setHealth(playerHealth + 25);
       newItem.remove("banana");
-      item.replace("banana", "");
       System.out.println("Way to fuel up, Smart!");
     } else {
       System.out.println("You have nothing to eat");
@@ -305,9 +306,9 @@ public class Game {
   private void heal() {
     int playerHealth = player.getHealth();
     if (player.getHealth() < 76 && newItem.contains("duct tape")) {
-      player.setHealth(playerHealth + 75);
+      player.setHealth(playerHealth + 50);
       newItem.remove("duct tape");
-      System.out.println("75 health has been added to your health");
+      System.out.println("50 health has been added to your health");
     } else if (!newItem.contains("duct tape")) {
       System.out.println("You need the duct tape to heal!");
     } else {
