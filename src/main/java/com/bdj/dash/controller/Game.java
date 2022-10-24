@@ -135,10 +135,18 @@ public class Game {
       System.out.println(ConsoleColors.CYAN + "See you next time" + ConsoleColors.RESET);
       setState(State.LOSE);
     } else if (command[0].equals("get")) {
-      addToInventory();
+      if (zombieInArea()){
+        System.out.println("You must kill the zombie");
+      } else {
+        addToInventory();
+      }
     } else if (command[0].equals("talk")) {
-      System.out.println();
-      talkToNpc();
+      if (zombieInArea()){
+        System.out.println("You must kill the zombie");
+      } else {
+        System.out.println();
+        talkToNpc();
+      }
     } else if (command[0].equals("heal")) {
       heal();
     } else if (command[0].equals("music-on")) {
@@ -147,23 +155,31 @@ public class Game {
       System.out.println("Turing off the music");
       musicObject.stopMusic(filepath);
     } else if (command[0].equals("eat")) {
+      if (zombieInArea()){
+        System.out.println("You must kill the zombie");
+      } else {
       if (newItem.contains("banana")){
         player.setHealth(playerHealth + 25);
         System.out.println("Way to fuel up, Smart!");
-        newItem.remove(0);
       } else {
         System.out.println("You have nothing to eat");
       }
+      }
     } else if (command.length == 1) {
-      System.out.println(ConsoleColors.BRIGHT_RED + ConsoleColors.BOLD + "invalid input, you need a second word to fulfill the command!" + ConsoleColors.RESET);
+      System.out.println(ConsoleColors.BRIGHT_RED + ConsoleColors.BOLD + "invalid input, please try again!" + ConsoleColors.RESET);
     } else if (command[0].equals("go")) {
       Location currentLocation = gameMap.get(player.getLocation());
-      movePlayer(command, currentLocation);
-      if (command[1].equals("north") && currentLocation.getNorth().isEmpty()
-      || command[1].equals("south") && currentLocation.getSouth().isEmpty()
-      || command[1].equals("east") && currentLocation.getEast().isEmpty()
-      || command[1].equals("west") && currentLocation.getWest().isEmpty()) {
-        System.out.println(ConsoleColors.BRIGHT_RED + ConsoleColors.BOLD + "\nYou can't go this way, there is nothing there.\n" + ConsoleColors.RESET);
+      if (zombieInArea()){
+        System.out.println("You must kill the zombie");
+      } else {
+        movePlayer(command, currentLocation);
+        if (command[1].equals("north") && currentLocation.getNorth().isEmpty()
+            || command[1].equals("south") && currentLocation.getSouth().isEmpty()
+            || command[1].equals("east") && currentLocation.getEast().isEmpty()
+            || command[1].equals("west") && currentLocation.getWest().isEmpty()) {
+          System.out.println(ConsoleColors.BRIGHT_RED + ConsoleColors.BOLD
+              + "\nYou can't go this way, there is nothing there.\n" + ConsoleColors.RESET);
+        }
       }
     } else if (command[0].equals("new") && command[1].equals("game")) {
       startGame();
@@ -177,12 +193,12 @@ public class Game {
   }
 
   public void useItem(String[] command){
-    if (!player.playerHasItem(command[1])){
-      System.out.println("you do not have this item");
-      player.setHealth(0);
-      System.out.println("Looks like you wont make it out of this one!");
-      return;
-    };
+//    if (!player.playerHasItem(command[1])){
+//      System.out.println("you do not have this item");
+//      player.setHealth(0);
+//      System.out.println("Looks like you wont make it out of this one!");
+//      return;
+//    };
     int playerHealth = player.getHealth();
     Location currentLocation = gameMap.get(player.getLocation());
     if(command[1].equals("crossbow") && currentLocation.getLocationName().equals("grocery store")){
@@ -197,6 +213,7 @@ public class Game {
       System.out.println("Looks like you wont make it out of this one!");
     } else if (command[1].equals("gun") && currentLocation.getLocationName().equals("boss room")) {
       bossHealth -= 150;
+      player.setHealth(playerHealth - bossDamage);
       bossZombie.setLocation("zombie dump");
       newItem.remove("gun");
       System.out.println("You have defeated Boss Baby Zombie!");
@@ -214,6 +231,9 @@ public class Game {
       System.out.println("Good, you killed the zombies!");
     } else if(command[1] == null){
       System.out.println("please enter a item");
+    } else {
+      System.out.println("please enter a valid item!");
+      showZombies();
     }
   }
 
@@ -304,6 +324,9 @@ public class Game {
     }else if (currentLocation.getLocationName().equals("toxic river") && !newItem.contains("raft")) {
       System.out.println(ConsoleColors.BRIGHT_RED + "You forgot the raft! The river was too toxic and so was your thinking. You DIED!" + ConsoleColors.RESET);
       setState(State.LOSE);
+    } else if (currentLocation.getLocationName().equals("portal")) {
+      System.out.println("Enjoy the boring past, zombies are fun!");
+      setState(State.WIN);
     }
   }
   // This handles the information about the player's current location, health, items, and inventory
@@ -363,26 +386,28 @@ public class Game {
     } else if (zombie3.getLocation().equals(currentLocation.getLocationName())) {
       System.out.println(ConsoleColors.BRIGHT_YELLOW + "There are two zombies in this room... This is not looking good for you.\n" + ConsoleColors.RESET);
     } else if (bossZombie.getLocation().equals(currentLocation.getLocationName())) {
-      System.out.println(ConsoleColors.BRIGHT_YELLOW + "This is a baby zombie? What harm could it do? \n"
+      System.out.println(ConsoleColors.BRIGHT_YELLOW + "This is a baby zombie? What harm could it do? \n Your health must be more than 100! \n"
           + "You better have more than one weapon to be safe!\n" + ConsoleColors.RESET);
     }
   }
 
-  public void zombieInArea(){
+  public boolean zombieInArea(){
     int playerHealth = player.getHealth();
     Location currentLocation = gameMap.get(player.getLocation());
     if (zombie1.getLocation().equals(currentLocation.getLocationName()) && !newItem.isEmpty()) {
       player.setHealth(playerHealth - zombie1Damage);
+      return true;
     } else if (zombie1.getLocation().equals(currentLocation.getLocationName()) && newItem.isEmpty()) {
       player.setHealth(playerHealth - zombie1Damage * 2);
+      return true;
     } else if (zombie2.getLocation().equals(currentLocation.getLocationName())) {
       player.setHealth(playerHealth - zombie2Damage);
+      return true;
     } else if (zombie3.getLocation().equals(currentLocation.getLocationName())) {
-      player.setHealth(playerHealth - zombie3Damage );
-      player.setHealth(playerHealth - zombie4Damage );
-    } else if (bossZombie.getLocation().equals(currentLocation.getLocationName())) {
-      player.setHealth(playerHealth - bossDamage );
+      player.setHealth(playerHealth - zombie3Damage - zombie4Damage );
+      return true;
     }
+    return false;
   }
 
   // This displays the directions that the player has currently available to them.

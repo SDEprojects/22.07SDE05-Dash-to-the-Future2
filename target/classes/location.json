@@ -122,7 +122,7 @@
   },
   {
     "name": "secret bunker",
-    "description": "Well, that looks like a safe place to hide. \nWhat is that piece of paper sticking out from beneath the rocks? \nIt is a note that reads, \n'The future of safe haven lies in your hands. Take this note to the Safe Haven to save the people and restore peace forever.'\n",
+    "description": "Well, that looks like a safe place to hide. \nWhat is that piece of paper sticking out from beneath the rocks? \nIt is a note that reads, \n'The future of safe haven lies in your hands. Take this note to the Safe Haven to inform them about the portal and save the people to restore peace forever.' \n Or be selfish!\n",
     "items": "portal note",
     "npc" : "",
     "npcQuote": "",
